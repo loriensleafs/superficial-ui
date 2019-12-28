@@ -19,5 +19,6 @@
   },
   "peerDependencies": {
     "react": "^16.8.0"
-  }
+  },
+  "repository": "git@github.com:loriensleafs/superficial-ui.git"
 }

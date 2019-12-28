@@ -39,6 +39,7 @@
     "polish": "^0.2.3",
     "popper.js": "^1.16.0",
     "prop-types": "^15.7.2",
+    "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-error-boundary": "^1.2.5",
     "react-focus-lock": "^2.2.1",
@@ -48,7 +49,6 @@
     "react-spring": "^8.0.27",
     "react-uid": "^2.2.0",
     "react-use-dimensions": "^1.2.1",
-    "react": "^16.12.0",
     "rgb-regex": "^1.0.1",
     "rgba-regex": "^1.0.0",
     "styled-system": "^5.1.2",
@@ -57,5 +57,12 @@
     "use-callback-ref": "^1.2.1"
   },
   "peerDependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "@babel/cli": "^7.7.5",
+    "@babel/core": "^7.7.5",
+    "@babel/node": "^7.7.4",
+    "babel-node": "^0.0.1-security",
+    "cross-env": "^6.0.3"
+  },
+  "repository": "git@github.com:loriensleafs/superficial-ui.git"
 }
