@@ -1,0 +1,40 @@
+{
+  "extends": [
+    "eslint-config-developit",
+    "prettier",
+    "plugin:prettier/recommended",
+    "prettier/react",
+    "prettier/standard"
+  ],
+  "plugins": ["prettier"],
+  "rules": {
+    "brace-style": "off",
+    "comma-dangle": ["warn", "always-multiline"],
+    "indent": "off",
+    "require-atomic-updates": "off",
+    "jsx-quotes": "off",
+    "no-unused-vars": "off",
+    "no-redeclare": "off",
+    "no-undef": "off",
+    "react/jsx-no-undef": "off",
+    "jsx-indent-props": "off",
+    "react/jsx-indent-props": "off",
+    "react/no-find-dom-node": "off",
+    "no-debugger": "off",
+    "no-useless-call": "off",
+    "no-dupe-keys": "off",
+    "ts": "off",
+    "prettier/prettier": [
+      "error",
+      { "singleQuote": true },
+      {
+        "usePrettierrc": true
+      }
+    ]
+  },
+  "settings": {
+    "react": {
+      "version": "16.11.0"
+    }
+  }
+}

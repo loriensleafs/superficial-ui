@@ -1,0 +1,12 @@
+/.git
+/docs/.next
+/coverage
+/packages/icons/fixtures
+/packages/icons/src
+/packages/icons/legacy
+/packages/icons/templateSvgIcon.js
+/tmp
+dist
+build
+node_modules
+*.json

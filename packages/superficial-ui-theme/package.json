@@ -1,0 +1,25 @@
+{
+  "name": "@superficial-ui/theme",
+  "version": "1.0.0",
+  "repository": "\"git@github.com:loriensleafs/squarz-ui.git\"",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "scripts": {
+    "prepare": "microbundle --no-compress --jsx React.createElement",
+    "watch": "microbundle watch --no-compress --jsx React.createElement"
+  },
+  "dependencies": {
+    "@superficial-ui/utils": "^1.0.0",
+    "@emotion/core": "^10.0.27",
+    "@emotion/styled": "^10.0.27",
+    "@superficial-ui/system": "^1.0.0",
+    "emotion-theming": "^10.0.27",
+    "react": "^16.12.0",
+    "styled-system": "^5.1.2",
+    "theme-ui": "^0.2.52"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0"
+  }
+}

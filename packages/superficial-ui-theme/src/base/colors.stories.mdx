@@ -1,0 +1,155 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+  Anchor,
+  Description,
+  Source,
+  Stories,
+  Subheading,
+  Subtitle,
+  Title,
+  ColorPalette,
+  ColorItem,
+} from '@storybook/addon-docs/blocks';
+import {
+  getSwatch,
+  black,
+  white,
+  gray,
+  blue,
+  blueGray,
+  green,
+  orange,
+  purple,
+  red,
+  teal,
+  yellow,
+} from './colors';
+import { theme } from './theme';
+
+<Meta title='Design System/Colors' />
+
+# Scales
+
+<ColorPalette>
+  <ColorItem title='gray' colors={getSwatch(gray)} />
+  <ColorItem title='blue' colors={getSwatch(blue)} />
+  <ColorItem title='blue gray' colors={getSwatch(blueGray)} />
+  <ColorItem title='green' colors={getSwatch(green)} />
+  <ColorItem title='orange' colors={getSwatch(orange)} />
+  <ColorItem title='purple' colors={getSwatch(purple)} />
+  <ColorItem title='red' colors={getSwatch(red)} />
+  <ColorItem title='teal' colors={getSwatch(teal)} />
+  <ColorItem title='yellow' colors={getSwatch(yellow)} />
+</ColorPalette>
+
+# Colors
+
+## Primary
+
+<ColorPalette>
+  <ColorItem
+    title='main | light | dark'
+    colors={[
+      theme.colors.primary.main,
+      theme.colors.primary.light,
+      theme.colors.primary.dark,
+    ]}
+  />
+  <ColorItem
+    title='text on primary'
+    colors={[
+      theme.colors.primary.contrast.main,
+      theme.colors.primary.contrast.light,
+      theme.colors.primary.contrast.dark,
+    ]}
+  />
+</ColorPalette>
+
+## Secondary
+
+<ColorPalette>
+  <ColorItem
+    title='main | light | dark'
+    colors={[
+      theme.colors.secondary.main,
+      theme.colors.secondary.light,
+      theme.colors.secondary.dark,
+    ]}
+  />
+  <ColorItem
+    title='text on secondary'
+    colors={[
+      theme.colors.secondary.contrast.main,
+      theme.colors.secondary.contrast.light,
+      theme.colors.secondary.contrast.dark,
+    ]}
+  />
+</ColorPalette>
+
+# States
+
+## Error
+
+<ColorPalette>
+  <ColorItem
+    title='main | light | dark'
+    colors={[
+      theme.colors.error.main,
+      theme.colors.error.light,
+      theme.colors.error.dark,
+    ]}
+  />
+  <ColorItem
+    title='text on error'
+    colors={[
+      theme.colors.error.contrast.main,
+      theme.colors.error.contrast.light,
+      theme.colors.error.contrast.dark,
+    ]}
+  />
+</ColorPalette>
+
+## Success
+
+<ColorPalette>
+  <ColorItem
+    title='main | light | dark'
+    colors={[
+      theme.colors.success.main,
+      theme.colors.success.light,
+      theme.colors.success.dark,
+    ]}
+  />
+  <ColorItem
+    title='text on success'
+    colors={[
+      theme.colors.success.contrast.main,
+      theme.colors.success.contrast.light,
+      theme.colors.success.contrast.dark,
+    ]}
+  />
+</ColorPalette>
+
+## Warning
+
+<ColorPalette>
+  <ColorItem
+    title='main | light | dark'
+    colors={[
+      theme.colors.warning.main,
+      theme.colors.warning.light,
+      theme.colors.warning.dark,
+    ]}
+  />
+  <ColorItem
+    title='text on warning'
+    colors={[
+      theme.colors.warning.contrast.main,
+      theme.colors.warning.contrast.light,
+      theme.colors.warning.contrast.dark,
+    ]}
+  />
+</ColorPalette>

@@ -1,0 +1,23 @@
+{
+  "name": "@superficial-ui/system",
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "scripts": {
+    "prepare": "microbundle --no-compress --jsx React.createElement",
+    "watch": "microbundle watch --no-compress --jsx React.createElement"
+  },
+  "dependencies": {
+    "@emotion/core": "^10.0.27",
+    "@emotion/styled": "^10.0.27",
+    "@superficial-ui/theme": "^1.0.0",
+    "@superficial-ui/utils": "^1.0.0",
+    "react": "^16.12.0",
+    "styled-system": "^5.1.2",
+    "theme-ui": "^0.2.52"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0"
+  }
+}
