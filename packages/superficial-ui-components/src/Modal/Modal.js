@@ -41,7 +41,7 @@ export const Modal = React.forwardRef(
       sx,
       ...props
     },
-    forwardedRef
+    forwardedRef,
   ) => {
     const [hasExited, setExited] = React.useState(true);
     const modal = React.useRef({});
@@ -52,7 +52,7 @@ export const Modal = React.forwardRef(
       isUIElement(children, ['Collapse', 'Fade', 'Scale', 'SlideIn']) ||
       get(children, 'props.in', false);
 
-    /* -------------------------------------------------------------------------- */
+    /* ---------------------------------------------------------------------- */
 
     const getDoc = () => ownerDocument(mountNodeRef.current);
     const getModal = () => {
@@ -61,7 +61,7 @@ export const Modal = React.forwardRef(
       return modal.current;
     };
 
-    /* -------------------------------------------------------------------------- */
+    /* ---------------------------------------------------------------------- */
 
     const handleMounted = () => {
       manager.mount(getModal(), { disableScrollLock });
@@ -72,7 +72,7 @@ export const Modal = React.forwardRef(
       }
     };
 
-    /* -------------------------------------------------------------------------- */
+    /* ---------------------------------------------------------------------- */
 
     const handleOpen = () => {
       const resolvedContainer = getContainer(container) || getDoc().body;
@@ -84,13 +84,13 @@ export const Modal = React.forwardRef(
       }
     };
 
-    /* -------------------------------------------------------------------------- */
+    /* ---------------------------------------------------------------------- */
 
     const isTopModal = React.useCallback(() => {
       return manager.isTopModal(getModal());
     }, [manager]);
 
-    /* -------------------------------------------------------------------------- */
+    /* ---------------------------------------------------------------------- */
 
     const handlePortalRef = node => {
       mountNodeRef.current = node;
@@ -107,19 +107,19 @@ export const Modal = React.forwardRef(
       }
     };
 
-    /* -------------------------------------------------------------------------- */
+    /* ---------------------------------------------------------------------- */
 
     const handleClose = React.useCallback(() => {
       manager.remove(getModal());
     }, [manager]);
 
-    /* -------------------------------------------------------------------------- */
+    /* ---------------------------------------------------------------------- */
 
     React.useEffect(() => {
       return () => handleClose();
     }, [handleClose]);
 
-    /* -------------------------------------------------------------------------- */
+    /* ---------------------------------------------------------------------- */
 
     React.useEffect(() => {
       if (isOpen) {
@@ -129,13 +129,13 @@ export const Modal = React.forwardRef(
       }
     }, [isOpen, handleClose, handleOpen, hasTransition]);
 
-    /* -------------------------------------------------------------------------- */
+    /* ---------------------------------------------------------------------- */
 
     if (!keepMounted && !isOpen && (!hasTransition || hasExited)) {
       return null;
     }
 
-    /* -------------------------------------------------------------------------- */
+    /* ---------------------------------------------------------------------- */
 
     const handleEnter = () => {
       setExited(false);
@@ -162,7 +162,7 @@ export const Modal = React.forwardRef(
       }
     };
 
-    /* -------------------------------------------------------------------------- */
+    /* ---------------------------------------------------------------------- */
 
     const handleKeyDown = event => {
       if (event.key !== 'Escape' || !isTopModal()) {
@@ -181,7 +181,7 @@ export const Modal = React.forwardRef(
       }
     };
 
-    /* -------------------------------------------------------------------------- */
+    /* ---------------------------------------------------------------------- */
 
     const childProps = {};
     if (children.props.tabIndex === undefined) {
@@ -193,7 +193,7 @@ export const Modal = React.forwardRef(
       childProps.onExited = handleExited;
     }
 
-    /* -------------------------------------------------------------------------- */
+    /* ---------------------------------------------------------------------- */
 
     return (
       <Portal
@@ -202,10 +202,10 @@ export const Modal = React.forwardRef(
         ref={handlePortalRef}
       >
         <Box
-          data-ui-test="Modal"
+          data-ui-test='Modal'
           onKeyDown={handleKeyDown}
           ref={modalRef}
-          role="presentation"
+          role='presentation'
           {...props}
           sx={{
             position: 'fixed',
@@ -216,9 +216,9 @@ export const Modal = React.forwardRef(
             left: '0px',
             ...(((hasTransition && hasExited) ||
               (!hasTransition && !isOpen)) && {
-              visibility: 'hidden'
+              visibility: 'hidden',
             }),
-            ...sx
+            ...sx,
           }}
         >
           {disableBackdrop ? null : (
@@ -232,7 +232,7 @@ export const Modal = React.forwardRef(
         </Box>
       </Portal>
     );
-  }
+  },
 );
 Modal.uiName = 'Modal';
 Modal.displayName = 'Modal';
@@ -245,7 +245,7 @@ Modal.defaultProps = {
   disablePortal: false,
   disableRestoreFocus: false,
   disableScrollLock: false,
-  keepMounted: false
+  keepMounted: false,
 };
 Modal.propTypes = {
   backdropIsHidden: PropTypes.bool,
@@ -261,5 +261,5 @@ Modal.propTypes = {
   onBackdropClick: PropTypes.func,
   onClose: PropTypes.func,
   onEscKeyDown: PropTypes.func,
-  onRendered: PropTypes.func
+  onRendered: PropTypes.func,
 };

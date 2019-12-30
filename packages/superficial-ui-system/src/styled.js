@@ -12,10 +12,8 @@ import { forwardRef } from 'react';
 import { css } from './css';
 import { jsx } from './jsx';
 import { htmlElements } from './supportedElements';
-import { isPropValid, systemProps } from './system';
+import { isPropValid, system } from './system';
 
-const cx = props => props.css;
-const sx = props => css(props.sx)(props.theme);
 const base = props => css(props.__css)(props.theme);
 const variants = ({ __themeKey, __variants, theme, variants, ...props }) =>
   __variants
@@ -41,26 +39,36 @@ const variants = ({ __themeKey, __variants, theme, variants, ...props }) =>
           ),
         {},
       );
+const sx = props => css(props.sx)(props.theme);
+const cx = props => props.css;
 
-const forwardProps = (tag, as) =>
-  typeof tag !== 'string' || (as && typeof as !== 'string');
+export const styled = (tag, options = {}) => (...styleInterpolations) => {
+  const { hook, shouldForwardProp, themeKey, variantProps } = options;
+  let isValidProp = prop => isPropValid(prop);
 
-export const styled = (tag, options = {}) => (...interpolations) => {
-  const shouldForwardProp = prop =>
-    isPropValid(prop) &&
-    isFunction(options.shouldForwardProp) &&
-    options.shouldForwardProp(prop);
-  const getNextProps = filterObject(shouldForwardProp);
-  const getNextCSS = compose(base, variants, sx, cx, ...interpolations);
+  if (isFunction(shouldForwardProp)) {
+    isValidProp = prop => isPropValid(prop) && shouldForwardProp(prop);
+  }
 
-  const Styled = forwardRef(({ as, ...props }, ref) => {
+  const getNextProps = filterObject(isValidProp);
+  const getCSS = compose(
+    base,
+    variants,
+    sx,
+    cx,
+    system,
+    ...styleInterpolations,
+  );
+
+  const Styled = forwardRef(function Styled({ as, ...props }, ref) {
     const theme = useTheme();
-    const nextProps = !forwardProps(tag, as) ? getNextProps(props) : props;
+    const hookProps = hook ? hook(props, ref) : {};
+    const nextProps = getNextProps(props);
 
     return jsx(as || tag, {
-      ...nextProps,
+      ...getNextProps({ ...nextProps, ...hookProps }),
       ref,
-      css: getNextCSS({ theme, ...props }),
+      css: getCSS({ theme, ...props }),
     });
   });
 
@@ -71,10 +79,8 @@ export const styled = (tag, options = {}) => (...interpolations) => {
   return Styled;
 };
 
-const createComponent = tag => styled(tag)(systemProps);
-
 htmlElements.forEach(tag => {
-  styled[tag] = createComponent(tag);
+  styled[tag] = styled(tag)();
 });
 
 export default styled;

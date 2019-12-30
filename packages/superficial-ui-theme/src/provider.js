@@ -27,7 +27,7 @@ const RootProvider = ({ theme: propsTheme = {}, children }) => {
 
   useEffect(() => {
     window.__SUPERFICIAL_UI__ = context;
-  }, [context.theme]);
+  }, [theme, context.theme]);
 
   return jsx(BaseProvider, { context, children });
 };
@@ -43,7 +43,7 @@ const NestedProvider = ({ theme, children }) => {
 
 export const ThemeProvider = props => {
   const outer = useThemeContext();
-  return outer.__SUPERFICIAL__
+  return window.__SUPERFICIAL_UI__ && outer.__SUPERFICIAL__
     ? jsx(NestedProvider, props)
     : jsx(RootProvider, props);
 };

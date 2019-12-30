@@ -52,13 +52,13 @@ Hidden.displayName = 'Hidden';
 Hidden.propTypes = {
   children: PropTypes.node,
   hide: PropTypes.func,
-  isAnimated: PropTYpes.bool,
+  isAnimated: PropTypes.bool,
   isAnimating: PropTypes.bool,
   isVisible: PropTypes.bool,
   onAnimationEnd: PropTypes.func,
   onTransitionEnd: PropTypes.func,
   setIsMounted: PropTypes.func,
-  show: PropTYpes.func,
+  show: PropTypes.func,
   stopAnimation: PropTypes.func,
   toggle: PropTypes.func,
 };

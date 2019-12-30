@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "@superficial-ui/utils": "^1.0.0",
-    "aria-hidden": "1.1.1"
+    "aria-hidden": "1.1.1",
+    "body-scroll-lock": "^2.6.4"
   },
   "peerDependencies": {
     "react": "^16.8.0"

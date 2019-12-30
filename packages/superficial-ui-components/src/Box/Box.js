@@ -1,11 +1,9 @@
 /** @jsx jsx */
 import types from '@styled-system/prop-types';
-import { isPropValid, styled, systemProps } from '@superficial-ui/system';
+import { styled } from '@superficial-ui/system';
 import PropTypes from 'prop-types';
 
-export const Box = styled('div', {
-  shouldForwardProp: isPropValid,
-})(systemProps);
+export const Box = styled.div;
 
 Box.uiName = 'Box';
 Box.displayName = 'Box';

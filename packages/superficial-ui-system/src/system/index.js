@@ -1,2 +1,2 @@
 export * from './isPropValid';
-export * from './systemProps';
+export { default as system, truncate } from './systemProps';

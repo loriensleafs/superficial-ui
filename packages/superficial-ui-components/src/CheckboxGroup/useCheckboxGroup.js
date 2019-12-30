@@ -1,14 +1,14 @@
 import * as React from 'react';
-import { useControllableValue } from '@superficial-ui/hooks';
+import { useControllableProp } from '@superficial-ui/hooks';
 import { isObject } from '@superficial-ui/utils';
 
 export const useCheckboxGroup = ({
   defaultValue,
   onChange,
-  value: valueProp
+  value: valueProp,
 }) => {
   const [value, setValue] = React.useState(defaultValue || []);
-  const [isControlled, currentValue] = useControllableValue(valueProp, value);
+  const [isControlled, currentValue] = useControllableProp(valueProp, value);
 
   const handleChange = React.useCallback(
     (event, val) => {
@@ -28,7 +28,7 @@ export const useCheckboxGroup = ({
       if (!isControlled) setValue(next);
       if (onChange) onChange(event, next);
     },
-    [currentValue, isControlled, onChange, setValue]
+    [currentValue, isControlled, onChange, setValue],
   );
 
   return { value: currentValue, onChange: handleChange };

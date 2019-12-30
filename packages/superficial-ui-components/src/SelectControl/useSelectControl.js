@@ -1,18 +1,18 @@
-import { useControllableValue } from '@superficial-ui/hooks';
+import { useControllableProp } from '@superficial-ui/hooks';
 import * as React from 'react';
 import { useFormControl } from '../FormControl';
 
 export const useSelectControl = props => {
   const [isChecked, setIsChecked] = React.useState(
-    Boolean(props.defaultIsChecked)
+    Boolean(props.defaultIsChecked),
   );
-  const [isControlled, currentChecked] = useControllableValue(
+  const [isControlled, currentChecked] = useControllableProp(
     props.isChecked,
-    isChecked
+    isChecked,
   );
   const [
     { isDisabled, onFocus, onBlur, onChange, type },
-    formControl
+    formControl,
   ] = useFormControl(props, ['isDisabled']);
 
   const handleFocus = event => {
@@ -40,6 +40,6 @@ export const useSelectControl = props => {
     isDisabled,
     onFocus: handleFocus,
     onBlur: handleBlur,
-    onChange: handleChange
+    onChange: handleChange,
   };
 };

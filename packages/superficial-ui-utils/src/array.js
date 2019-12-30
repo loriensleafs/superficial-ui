@@ -1,9 +1,7 @@
 import { isArray } from './assertions';
 
-export const toArray = arg => {
-  if (isArray(arg)) return arg;
-  return typeof arg !== 'undefined' ? [arg] : [];
-};
+export const toArray = arg =>
+  !isArray(arg) ? (typeof arg !== 'undefined' ? [arg] : []) : arg;
 
 export const firstIndex = array => (isArray(array) ? array[0] : undefined);
 

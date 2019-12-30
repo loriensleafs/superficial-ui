@@ -1,23 +1,17 @@
-import * as React from 'react';
+import { useEffect } from 'react';
 
-export const useClickOutside = (ref, onClickOutside, isDisabled = false) => {
-  const handleClickOutside = React.useCallback(
-    event => {
-      if (!ref.current || isDisabled) return;
-      const isContained = ref.current.contains(event.target);
-      if (!isContained && onClickOutside) onClickOutside(event);
-    },
-    [handleClickOutside, isDisabled, ref]
-  );
+export const useClickOutside = (ref, callback) => {
+  useEffect(() => {
+    const handleClickOutside = event => {
+      if (!ref.current || ref.current.contains(event.target)) return;
+      callback && callback(event);
+    };
 
-  React.useEffect(() => {
-    if (!isDisabled) {
-      document.addEventListener('click', handleclickoutside);
-      document.addEventListener('ontouchstart', handleclickoutside);
-      return () => {
-        document.removeEventListener('click', handleclickoutside);
-        document.removeEventListener('ontouchstart', handleclickoutside);
-      };
-    }
-  }, [isDisabled, onClickOutside, ref]);
+    document.addEventListener('click', handleClickOutside);
+    document.addEventListener('ontouchstart', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+      document.removeEventListener('ontouchstart', handleClickOutside);
+    };
+  }, [callback, ref]);
 };

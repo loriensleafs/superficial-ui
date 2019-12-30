@@ -5,7 +5,7 @@ import hslaRegex from 'hsla-regex';
 import * as P from 'polished';
 import rgbRegex from 'rgb-regex';
 import rgbaRegex from 'rgba-regex';
-import { functionElseValue } from './callbacks';
+import { functionElseValue } from './function';
 import { get } from './object';
 
 export const isRgb = string => rgbRegex({ exact: true }).test(string);
@@ -45,7 +45,7 @@ const BRAND_COLORS = [
   'primary',
   'secondary',
   'success',
-  'warning'
+  'warning',
 ];
 
 const THEME_COLORS = [
@@ -56,7 +56,7 @@ const THEME_COLORS = [
   'secondary',
   'success',
   'text',
-  'warning'
+  'warning',
 ];
 
 export const isThemeColor = color => THEME_COLORS.includes(color);
@@ -73,7 +73,7 @@ export const getColor = color => theme => {
     : get(
         theme,
         'colors.' + value + '.main',
-        get(theme, 'colors.' + value, value)
+        get(theme, 'colors.' + value, value),
       );
 };
 
@@ -97,14 +97,14 @@ export const fade = (color, amount) => theme => {
 export const getContrast = (
   color,
   light = 'rgba(0, 0, 0, 0.87)',
-  dark = '#fff'
+  dark = '#fff',
 ) => theme => {
   const value = getColor(color)(theme);
   return isColor(value)
     ? P.readableColor(
         getColor(value)(theme),
         getColor(light)(theme),
-        getColor(dark)(theme)
+        getColor(dark)(theme),
       )
     : color;
 };

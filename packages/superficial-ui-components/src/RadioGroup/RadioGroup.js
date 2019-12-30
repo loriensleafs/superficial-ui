@@ -1,4 +1,4 @@
-import { useControllableValue, useForkRef, useId } from '@superficial-ui/hooks';
+import { useControllableProp, useForkRef, useId } from '@superficial-ui/hooks';
 import * as React from 'react';
 import { Box } from '../Box';
 import { RadioGroupContext } from './context';
@@ -16,12 +16,12 @@ export const RadioGroup = React.forwardRef(
       sx,
       ...props
     },
-    ref
+    ref,
   ) => {
     const rootRef = React.useRef(null);
 
     const [value, setValue] = React.useState(defaultValue || '');
-    const [isControlled, currentValue] = useControllableValue(valueProp, value);
+    const [isControlled, currentValue] = useControllableProp(valueProp, value);
 
     /** All radio options must use the same name */
     const fallbackName = useId('radio');
@@ -32,7 +32,7 @@ export const RadioGroup = React.forwardRef(
       () => ({
         focus: () => {
           let input = rootRef.current.querySelector(
-            'input:not(:disabled):checked'
+            'input:not(:disabled):checked',
           );
 
           if (!input) {
@@ -42,9 +42,9 @@ export const RadioGroup = React.forwardRef(
           if (input) {
             input.focus();
           }
-        }
+        },
       }),
-      []
+      [],
     );
 
     const handleRef = useForkRef(ref, rootRef);
@@ -67,7 +67,7 @@ export const RadioGroup = React.forwardRef(
           ref={handleRef}
           sx={{
             display: isInline ? 'inline-block' : 'block',
-            ...sx
+            ...sx,
           }}
           {...props}
         >
@@ -75,7 +75,7 @@ export const RadioGroup = React.forwardRef(
         </Box>
       </RadioGroupContext.Provider>
     );
-  }
+  },
 );
 RadioGroup.uiName = 'RadioGroup';
 RadioGroup.displayName = 'RadioGroup';

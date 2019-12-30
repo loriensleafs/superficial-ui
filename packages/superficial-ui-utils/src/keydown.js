@@ -1,18 +1,20 @@
-import { resolveCallback } from './callbacks';
+import { resolveCallback } from './function';
 import { normalizeEventKey } from './dom';
 
-export const createOnKeyDown = ({
+export function createOnKeyDown({
   keyMap,
   onKey,
   stopPropagation,
   onKeyDown,
   shouldKeyDown = () => true,
-  preventDefault = true
-}) => {
+  preventDefault = true,
+}) {
   if (!keyMap) return;
+
   const finalKeyMap = resolveCallback(keyMap, event);
   const shouldPreventDefault = resolveCallback(preventDefault, event);
   const shouldStopPropagation = resolveCallback(stopPropagation, event);
+
   const eventKey = normalizeEventKey(event);
 
   if (eventKey in finalKeyMap) {
@@ -29,4 +31,4 @@ export const createOnKeyDown = ({
   if (onKeyDown) {
     onKeyDown(event);
   }
-};
+}

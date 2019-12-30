@@ -1,24 +1,26 @@
-import * as Lock from 'body-scroll-lock';
-import * as React from 'react';
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
+import { useEffect } from 'react';
 
 export const useLockBodyScroll = (ref, options) => {
-  React.useEffect(() => {
+  useEffect(() => {
     if (!ref.current) return;
     const node = ref.current;
 
-    if (options.isEnabled && node) {
-      Lock.disableBodyScroll(node, {
+    if (options.shouldLock && node) {
+      disableBodyScroll(node, {
         allowTouchMove: options.allowTouchMove,
-        reserveScrollBarGap: options.preserveScrollBarGap
+        preserveScrollBarGap: options.preserveScrollBarGap,
       });
     }
     return () => {
-      if (node) Lock.enableBodyScroll(node);
+      if (node) enableBodyScroll(node);
     };
   }, [
-    ref,
+    ref.current,
     options.allowTouchMove,
-    options.isEnabled,
-    options.preserveScrollBarGap
+    options.preserveScrollBarGap,
+    options.shouldLock,
   ]);
 };
+
+export default useLockBodyScroll;

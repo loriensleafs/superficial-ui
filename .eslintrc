@@ -2,12 +2,13 @@
   "extends": [
     "eslint-config-developit",
     "prettier",
-    "plugin:prettier/recommended",
     "prettier/react",
     "prettier/standard"
   ],
-  "plugins": ["prettier"],
+  "plugins": ["prettier", "react-hooks"],
   "rules": {
+    "react-hooks/rules-of-hooks": "warn",
+    "react-hooks/exhaustive-deps": "warn",
     "brace-style": "off",
     "comma-dangle": ["warn", "always-multiline"],
     "indent": "off",

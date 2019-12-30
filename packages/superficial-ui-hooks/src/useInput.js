@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { useControllableValue } from './useControllableValue';
+import { useControllableProp } from './useControllableProp';
 
 export const useInput = props => {
   const isCheckbox = props.type === 'checkbox' || props.type === 'radio';
@@ -8,9 +8,9 @@ export const useInput = props => {
   const eventProp = isCheckbox ? 'checked' : 'value';
 
   const [inputState, setInputState] = useState(Boolean(props[defaultProp]));
-  const [isControlled, derivedState] = useControllableValue(
+  const [isControlled, derivedState] = useControllableProp(
     props[stateProp],
-    inputState
+    inputState,
   );
 
   const isInteractive = !(props.isDisabled || props.isReadOnly);
@@ -23,7 +23,7 @@ export const useInput = props => {
       if (!isControlled) setInputState(nextState);
       if (props.onChange) props.onChange(event, nextState);
     },
-    [isInteractive, props.onChange]
+    [eventProp, isControlled, isInteractive, props],
   );
 
   return [derivedState, handleChange];
