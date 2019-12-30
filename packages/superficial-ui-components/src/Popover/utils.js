@@ -46,3 +46,17 @@ export const getScrollParent = (parent, child) => {
 export const getAnchorEl = anchorEl => {
   return typeof anchorEl === 'function' ? anchorEl() : anchorEl;
 };
+
+[
+  'me.id',
+  'me.firstName',
+  'me.lastName',
+  'me.email',
+  'me.createdAt',
+  'me.status',
+  'me.company.id',
+  'me.role.id',
+].reduce((acc, path) => ({
+  ...acc,
+  pathOr(null, path.split('.'), serverData)
+}), {});
