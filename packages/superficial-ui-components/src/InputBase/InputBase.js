@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import {
   useDimensions,
-  useForkRef,
-  useIsomorphicEffect
+  useMergeRefs,
+  useIsomorphicEffect,
 } from '@superficial-ui/hooks';
 import { jsx } from '@superficial-ui/system';
 import { isEmpty } from '@superficial-ui/utils';
@@ -47,7 +47,7 @@ export const InputBase = React.forwardRef((props, ref) => {
       value,
       ...passThru
     },
-    formControl
+    formControl,
   ] = useFormControl(props, [
     'color',
     'isDense',
@@ -56,7 +56,7 @@ export const InputBase = React.forwardRef((props, ref) => {
     'isInvalid',
     'isRequired',
     'setStartAddonRect',
-    'setEndAddonRect'
+    'setEndAddonRect',
   ]);
   const { current: isControlled } = React.useRef(!isEmpty(value));
 
@@ -64,7 +64,7 @@ export const InputBase = React.forwardRef((props, ref) => {
   const [endAddonRef, endAddonRect] = useDimensions({ liveMeasure: false });
 
   const ownInputRef = React.useRef(null);
-  const inputRef = useForkRef(ownInputRef, inputRefProp);
+  const inputRef = useMergeRefs(ownInputRef, inputRefProp);
 
   const [isFocused, setIsFocused] = React.useState(false);
 
@@ -76,7 +76,7 @@ export const InputBase = React.forwardRef((props, ref) => {
       if (isDirty(obj) && onFilled) onFilled();
       if (!isDirty(obj) && onEmpty) onEmpty();
     },
-    [onEmpty, onFilled]
+    [onEmpty, onFilled],
   );
 
   /** Local - track focus state */
@@ -159,15 +159,15 @@ export const InputBase = React.forwardRef((props, ref) => {
         lineHeight: '1.1875em',
         _disabled: {
           cursor: 'default',
-          color: 'disabled.text'
+          color: 'disabled.text',
         },
-        ...sx
+        ...sx,
       }}
     >
       {startAddon &&
         React.cloneElement(startAddon, {
           position: 'start',
-          ref: startAddonRef
+          ref: startAddonRef,
         })}
       <FormControlContext.Provider value={null}>
         <Control

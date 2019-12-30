@@ -3,10 +3,10 @@ import { useCallback, useEffect, useState } from 'react';
 import { useControllableProp } from './useControllableProp';
 import { usePrevious } from './usePrevious';
 
-export const useDisclosure = ({ isAnimated = false, ...props }) => {
+export function useDisclosure({ isAnimated = false, ...props }) {
   const [isOpenState, setIsOpen] = useState(get(props, 'defaultIsOpen', false));
   const [isControlled, isOpen] = useControllableProp(props.isOpen, isOpenState);
-  const lastIsOpen = usePrevious(isOpen);
+  const prevIsOpen = usePrevious(isOpen);
 
   const [isAnimating, setIsAnimating] = useState(false);
 
@@ -14,8 +14,8 @@ export const useDisclosure = ({ isAnimated = false, ...props }) => {
     if (
       isAnimated &&
       !isAnimating &&
-      lastIsOpen !== null &&
-      lastIsOpen !== isOpen
+      prevIsOpen !== null &&
+      prevIsOpen !== isOpen
     ) {
       setIsAnimating(true);
     }
@@ -56,10 +56,12 @@ export const useDisclosure = ({ isAnimated = false, ...props }) => {
     isAnimating: Boolean(isAnimating),
     isControlled,
     isOpen: Boolean(isOpen),
-    lastIsOpen: Boolean(lastIsOpen),
     onClose: handleClose,
     onOpen: handleOpen,
     onToggle: handleToggle,
+    prevIsOpen: Boolean(prevIsOpen),
     stopAnimation,
   };
-};
+}
+
+export default useDisclosure;

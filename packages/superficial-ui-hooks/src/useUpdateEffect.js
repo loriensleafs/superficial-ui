@@ -1,18 +1,20 @@
-import * as React from 'react';
+import { useEffect, useRef } from 'react';
+
 /**
  * React effect hook that invokes only on update.
- * It doesn't invoke on mount.
- * @param  {func} effect
- * @param  {array} deps
+ * It doesn't invoke on mount
  */
-export const useUpdateEffect = (effect, deps) => {
-  const isMounted = React.useRef(false);
-
-  React.useEffect(() => {
-    if (isMounted.current) return effect();
+export function useUpdateEffect(effect, deps) {
+  const isMounted = useRef(false);
+  useEffect(() => {
+    if (isMounted.current) {
+      return effect();
+    }
     isMounted.current = true;
     return undefined;
   }, deps);
 
   return isMounted.current;
-};
+}
+
+export default useUpdateEffect;

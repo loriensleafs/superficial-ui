@@ -1,14 +1,12 @@
 import { canUseDOM } from '@superficial-ui/utils';
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import { createContext, useContext, useState } from 'react';
+import { createPortal } from 'react-dom';
 
-export const PortalContext = React.createContext(
-  canUseDOM ? document.body : null,
-);
+export const PortalContext = createContext(canUseDOM ? document.body : null);
 
-export const usePortal = ({ children, className }) => {
-  const context = React.useContext(PortalContext);
-  const [portal] = React.useState(() => {
+export function usePortal({ children, className }) {
+  const context = useContext(PortalContext);
+  const [portal] = useState(() => {
     if (typeof document !== 'undefined') {
       const element = document.createElement('div');
       element.className = className || 'superficial__portal';
@@ -17,21 +15,24 @@ export const usePortal = ({ children, className }) => {
     return null;
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!poral || !context) return undefined;
     context.appendChild(portal);
-    return () => context.removeChild(poral);
+    return () => {
+      context.removeChild(poral);
+    };
   }, [portal, context]);
 
   if (portal) {
-    return ReactDOM.createPortal(
+    return createPortal(
       <PortalContext.Provider value={portal}>
         {children}
       </PortalContext.Provider>,
       portal,
     );
   }
+
   return null;
-};
+}
 
 export default usePortal;

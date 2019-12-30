@@ -1,7 +1,7 @@
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import { useEffect } from 'react';
 
-export const useLockBodyScroll = (ref, options) => {
+export function useLockBodyScroll(ref, options) {
   useEffect(() => {
     if (!ref.current) return;
     const node = ref.current;
@@ -21,6 +21,6 @@ export const useLockBodyScroll = (ref, options) => {
     options.preserveScrollBarGap,
     options.shouldLock,
   ]);
-};
+}
 
 export default useLockBodyScroll;

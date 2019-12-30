@@ -1,7 +1,7 @@
-import * as React from 'react';
+import { useCallback, useState } from 'react';
 import { useControllableProp } from './useControllableProp';
 
-export const useArray = props => {
+export function useArray(props) {
   const {
     onChange,
     defaultValue,
@@ -9,17 +9,20 @@ export const useArray = props => {
     max,
     keepWithinMax = true,
   } = props;
-  const [valueState, setValue] = React.useState(defaultValue || []);
+  const [valueState, setValue] = useState(defaultValue || []);
   const [isControlled, value] = useControllableProp(valueProp, valueState);
+
   const isAtMax = Boolean(max && value.length === max);
   const isOutOfRange = Boolean(max && value.length > max);
 
   /**
    * Update the array state.
    */
-  const updateState = React.useCallback(
+  const updateState = useCallback(
     nextState => {
-      if (max && nextState.length > max && keepWithinMax) return;
+      if (max && nextState.length > max && keepWithinMax) {
+        return;
+      }
       if (!isControlled) setValue(nextState);
       if (onChange) onChange(nextState);
     },
@@ -29,12 +32,14 @@ export const useArray = props => {
   /**
    * Move an element in an array to another index.
    */
-  const move = React.useCallback(
+  const move = useCallback(
     (from, to) => {
       const nextState = [...value];
       const fromValue = nextState[from];
+
       nextState.splice(from, 1);
       nextState.splice(to, 0, fromValue);
+
       updateState(nextState);
     },
     [value, updateState],
@@ -43,7 +48,7 @@ export const useArray = props => {
   /**
    * Add new value(s) to the end of an array.
    */
-  const add = React.useCallback(
+  const add = useCallback(
     (...items) => {
       updateState([...value, ...items]);
     },
@@ -53,7 +58,7 @@ export const useArray = props => {
   /**
    * Blow away the state and replace it by setting it with the passed items.
    */
-  const set = React.useCallback(
+  const set = useCallback(
     newValue => {
       updateState(newValue);
     },
@@ -63,24 +68,26 @@ export const useArray = props => {
   /**
    * Empty the list.
    */
-  const clear = React.useCallback(() => {
+  const clear = useCallback(() => {
     updateState([]);
   }, [updateState]);
 
   /**
    * Reset the list to the initial value.
    */
-  const reset = React.useCallback(() => {
+  const reset = useCallback(() => {
     updateState(defaultValue || []);
   }, [defaultValue, updateState]);
 
   /**
    * Swap two values in an array.
    */
-  const swap = React.useCallback(
+  const swap = useCallback(
     (indexA, indexB) => {
       const nextState = [...value];
-      nextState.splice(index, 0, item);
+      const indexAValue = nextState[indexA];
+      nextState[indexA] = nextState[indexB];
+      nextState[indexB] = indexAValue;
       updateState(nextState);
     },
     [value, updateState],
@@ -89,7 +96,7 @@ export const useArray = props => {
   /**
    * Insert an element at a given index into the array.
    */
-  const insertAt = React.useCallback(
+  const insertAt = useCallback(
     (index, item) => {
       const nextState = [...value];
       nextState.splice(index, 0, item);
@@ -101,7 +108,7 @@ export const useArray = props => {
   /**
    * Remove an element at an index of an array.
    */
-  const removeAt = React.useCallback(
+  const removeAt = useCallback(
     index => {
       const nextState = [...value].filter((_, idx) => index !== idx);
       updateState(nextState);
@@ -113,7 +120,7 @@ export const useArray = props => {
   /**
    * Remove and return value from the end of the array.
    */
-  const pop = React.useCallback(() => {
+  const pop = useCallback(() => {
     const nextState = [...value];
     const poppedItem = nextState.pop();
     updateState(nextState);
@@ -123,7 +130,7 @@ export const useArray = props => {
   /**
    * Add an element to the beginning of an array and return it's length.
    */
-  const unshift = React.useCallback(() => {
+  const unshift = useCallback(() => {
     const nextState = [...value];
     const newLength = nextState.unshift();
     updateState(nextState);
@@ -133,7 +140,7 @@ export const useArray = props => {
   /**
    * Replace a value at an index of an array.
    */
-  const replace = React.useCallback(
+  const replace = useCallback(
     (index, item) => {
       const nextState = [...value];
       nextState[index] = item;
@@ -143,20 +150,22 @@ export const useArray = props => {
   );
 
   return {
-    value,
-    isEmpty: Boolean(value.length),
-    isAtMax,
-    isOutOfRange,
     add,
-    set,
-    pop,
-    move,
     clear,
-    reset,
-    swap,
     insertAt,
+    isAtMax,
+    isEmpty: Boolean(value.length),
+    isOutOfRange,
+    move,
+    pop,
     removeAt,
-    unshift,
     replace,
+    reset,
+    set,
+    swap,
+    unshift,
+    value,
   };
-};
+}
+
+export default useArray;

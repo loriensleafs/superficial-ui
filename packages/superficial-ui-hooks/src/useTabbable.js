@@ -1,7 +1,7 @@
-import * as React from 'react';
+import { useState, useCallback } from 'react';
 import { useMergeRefs } from './useMergeRefs';
 
-export const useTabbable = ({
+export function useTabbable({
   clickOnEnter = true,
   clickOnSpace = true,
   isDisabled,
@@ -14,15 +14,15 @@ export const useTabbable = ({
   onMouseUp,
   tabIndex: tabIndexProp,
   ...props
-}) => {
-  /** Tracks if the element is a button element. */
-  const [isButton, setIsButton] = React.useState(true);
+}) {
+  // Tracks if the element is a button element.
+  const [isButton, setIsButton] = useState(true);
 
-  /** Track mouse down on custom button. Style ":active" to enable. */
-  const [isPressed, setIsPressed] = React.useState(false);
+  // Track mouse down on custom button. Style ":active" to enable.
+  const [isPressed, setIsPressed] = useState(false);
 
-  /** Ref callback that fires as soon as the DOM is ready. */
-  const refCallback = React.useCallback(node => {
+  // Ref callback that fires as soon as the DOM is ready.
+  const refCallback = useCallback(node => {
     if (node && node.tagName !== 'BUTTON') {
       setIsButton(false);
     }
@@ -31,7 +31,7 @@ export const useTabbable = ({
   const tabIndex = isButton ? tabIndexProp : tabIndexProp || 0;
   const trulyDisabled = isDisabled && !isFocusable;
 
-  const handleClick = React.useCallback(
+  const handleClick = useCallback(
     event => {
       if (isDisabled) {
         event.stopPropagation();
@@ -41,12 +41,14 @@ export const useTabbable = ({
 
       event.currentTarget.focus();
 
-      if (onClick) onClick(event);
+      if (onClick) {
+        onClick(event);
+      }
     },
     [isDisabled, onClick],
   );
 
-  const handleKeyDown = React.useCallback(
+  const handleKeyDown = useCallback(
     event => {
       if (onKeyDown) onKeyDown(event);
       if (isDisabled) return;
@@ -67,7 +69,7 @@ export const useTabbable = ({
     [isDisabled, isButton, onKeyDown, clickOnEnter],
   );
 
-  const handleKeyUp = React.useCallback(
+  const handleKeyUp = useCallback(
     event => {
       if (onKeyUp) onKeyUp(event);
       if (isDisabled) return;
@@ -83,7 +85,7 @@ export const useTabbable = ({
     [clickOnSpace, isButton, isDisabled, onKeyUp],
   );
 
-  const handleMouseDown = React.useCallback(
+  const handleMouseDown = useCallback(
     event => {
       if (isDisabled) {
         event.stopPropagation();
@@ -91,20 +93,24 @@ export const useTabbable = ({
         return;
       }
 
-      if (!isButton) setIsPressed(true);
-
-      if (onMouseDown) onMouseDown(event);
+      if (!isButton) {
+        setIsPressed(true);
+      }
+      if (onMouseDown) {
+        onMouseDown(event);
+      }
     },
     [isDisabled, isButton, onMouseDown],
   );
 
-  const handleMouseUp = React.useCallback(
+  const handleMouseUp = useCallback(
     event => {
-      if (isDisabled) {
-        event.preventDefault();
-        return;
+      if (!isButton) {
+        setIsPressed(false);
       }
-      if (onMouseUp) onMouseUp(event);
+      if (onMouseUp) {
+        onMouseUp(event);
+      }
     },
     [isDisabled, onMouseUp],
   );
@@ -115,7 +121,9 @@ export const useTabbable = ({
         event.preventDefault();
         return;
       }
-      if (onMouseOver) onMouseOver(event);
+      if (onMouseOver) {
+        onMouseOver(event);
+      }
     },
     [isDisabled, onMouseOver],
   );
@@ -125,34 +133,36 @@ export const useTabbable = ({
   if (isButton) {
     return {
       ...props,
-      ref,
       'aria-disabled': trulyDisabled ? undefined : isDisabled,
       disabled: trulyDisabled,
       onClick: handleClick,
-      onMouseDown,
-      onMouseUp,
-      onKeyUp,
       onKeyDown,
-      onMouseOver,
+      onKeyUp,
       onMouseDown,
+      onMouseDown,
+      onMouseOver,
       onMouseUp,
+      onMouseUp,
+      ref,
     };
   }
 
   return {
     ...props,
+    'aria-disabled': isDisabled,
+    'data-active': isPressed || undefined,
+    onClick: handleClick,
+    onKeyDown: handleKeyDown,
+    onKeyUp: handleKeyUp,
+    onMouseDown: handleMouseDown,
+    onMouseDown: handleMouseDown,
+    onMouseOver: handleMouseOver,
+    onMouseUp: handleMouseUp,
+    onMouseUp: handleMouseUp,
     ref,
     role: 'button',
-    'data-active': isPressed || undefined,
-    'aria-disabled': isDisabled,
     tabIndex: trulyDisabled ? undefined : tabIndex,
-    onClick: handleClick,
-    onMouseDown: handleMouseDown,
-    onMouseUp: handleMouseUp,
-    onKeyUp: handleKeyUp,
-    onKeyDown: handleKeyDown,
-    onMouseOver: handleMouseOver,
-    onMouseDown: handleMouseDown,
-    onMouseUp: handleMouseUp,
   };
-};
+}
+
+export default useTabbable;

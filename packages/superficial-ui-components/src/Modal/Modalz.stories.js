@@ -5,6 +5,7 @@ import { Box } from '../Box';
 import { Scale } from '../Scale';
 import { Card } from '../Card';
 import { useDisclosure } from '@superficial-ui/hooks';
+import ErrorBoundary from 'react-error-boundary';
 
 export default {
   title: 'Components/Modalz',
@@ -17,27 +18,29 @@ export const defaultStory = () => {
 
   return (
     <>
-      <button onClick={modal.onToggle}>toggle</button>
-      <Modal {...modal}>
-        <Scale
-          as={Card}
-          bottom={0}
-          in={modal.isOpen}
-          left={0}
-          m='auto'
-          maxH='calc(100vh - 7.5em)'
-          minH='300px'
-          onExited={modal.stopAnimation}
-          pos='fixed'
-          right={0}
-          shadow='5xl'
-          top={0}
-          w='340px'
-          zIndex={1300}
-        >
-          test
-        </Scale>
-      </Modal>
+      <ErrorBoundary>
+        <button onClick={modal.onToggle}>toggle</button>
+        <Modal {...modal}>
+          <Scale
+            as={Card}
+            bottom={0}
+            in={modal.isOpen}
+            left={0}
+            m='auto'
+            maxH='calc(100vh - 7.5em)'
+            minH='300px'
+            onExited={modal.stopAnimation}
+            pos='fixed'
+            right={0}
+            shadow='5xl'
+            top={0}
+            w='340px'
+            zIndex={1300}
+          >
+            test
+          </Scale>
+        </Modal>
+      </ErrorBoundary>
     </>
   );
 };

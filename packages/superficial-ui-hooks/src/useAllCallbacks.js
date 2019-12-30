@@ -1,7 +1,13 @@
-import * as React from 'react';
+import { useCallback } from 'react';
 
-export const useAllCallbacks = (...callbacks) =>
-  React.useCallback((...args) => {
+export function useAllCallbacks(...callbacks) {
+  useCallback((...args) => {
     const fns = callbacks.filter(Boolean);
-    for (const callback of fns) callback(...args);
+
+    for (const callback of fns) {
+      callback(...args);
+    }
   }, callbacks);
+}
+
+export default useAllCallbacks;

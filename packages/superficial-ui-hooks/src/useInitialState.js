@@ -1,6 +1,8 @@
-import * as React from 'react';
+import { useState } from 'react';
 
-export const useInitialState = initialState => {
-  const [initial] = React.useState(initialState);
+export function useInitialState(initialState) {
+  const [initial] = useState(initialState);
   return initial;
-};
+}
+
+export default useInitialState;

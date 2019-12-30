@@ -10,6 +10,7 @@ import { createContext } from '@superficial-ui/utils';
 import React, { forwardRef, useCallback, useEffect, useRef } from 'react';
 import { Box } from '../Box';
 import { Portal } from '../Portal/_Portal';
+import ErrorBoundary from 'react-error-boundary';
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -78,17 +79,19 @@ export const Modal = forwardRef((props, ref) => {
   }
 
   return (
-    <Portal container={props.container}>
-      <Box
-        data-ui-test='superficial__modal'
-        ref={modalRef}
-        role='presentation'
-        tabIndex={-1}
-        {...props}
-      >
-        {props.children}
-      </Box>
-    </Portal>
+    <ErrorBoundary>
+      <Portal container={props.container}>
+        <Box
+          data-ui-test='superficial__modal'
+          ref={modalRef}
+          role='presentation'
+          tabIndex={-1}
+          {...props}
+        >
+          {props.children}
+        </Box>
+      </Portal>
+    </ErrorBoundary>
   );
 });
 

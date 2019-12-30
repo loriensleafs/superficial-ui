@@ -1,4 +1,4 @@
-import { useForkRef, useIsomorphicEffect } from '@superficial-ui/hooks';
+import { useMergeRefs, useIsomorphicEffect } from '@superficial-ui/hooks';
 import PropTypes from 'prop-types';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
@@ -11,11 +11,11 @@ const getContainer = container => {
 export const Portal = React.forwardRef(
   (
     { children, container, isDisabled = false, onRendered, ...props },
-    forwardedRef
+    forwardedRef,
   ) => {
     const [mountNode, setMountNode] = React.useState(null);
     const ownRef = React.useRef(null);
-    const ref = useForkRef(ownRef, forwardedRef);
+    const ref = useMergeRefs(ownRef, forwardedRef);
 
     useIsomorphicEffect(() => {
       if (!isDisabled) {
@@ -48,19 +48,19 @@ export const Portal = React.forwardRef(
     }
 
     return mountNode ? ReactDOM.createPortal(children, mountNode) : mountNode;
-  }
+  },
 );
 Portal.uiName = 'Portal';
 Portal.displayName = 'Portal';
 Portal.defaultProps = {
-  isDisabled: false
+  isDisabled: false,
 };
 Portal.propTypes = {
   container: PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.object,
-    PropTypes.func
+    PropTypes.func,
   ]),
   isDisabled: PropTypes.bool,
-  onRendered: PropTypes.func
+  onRendered: PropTypes.func,
 };

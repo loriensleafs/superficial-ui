@@ -1,8 +1,8 @@
-import * as React from 'react';
 import { ensureFocus, getFirstTabbableIn } from '@superficial-ui/utils';
+import { useEffect } from 'react';
 
-export const useFocusOnShow = (ref, options) => {
-  React.useEffect(() => {
+export function useFocusOnShow(ref, options) {
+  useEffect(() => {
     const initialFocusRef = options.focusRef;
     const shouldFocus = options.visible && options.autoFocus;
 
@@ -19,4 +19,6 @@ export const useFocusOnShow = (ref, options) => {
       }
     }
   }, [options.visible, options.autoFocus, ref, options.focusRef]);
-};
+}
+
+export default useFocusOnShow;

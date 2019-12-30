@@ -1,4 +1,4 @@
-import { useControllableProp, useForkRef, useId } from '@superficial-ui/hooks';
+import { useControllableProp, useMergeRefs, useId } from '@superficial-ui/hooks';
 import * as React from 'react';
 import { Box } from '../Box';
 import { RadioGroupContext } from './context';
@@ -47,7 +47,7 @@ export const RadioGroup = React.forwardRef(
       [],
     );
 
-    const handleRef = useForkRef(ref, rootRef);
+    const handleRef = useMergeRefs(ref, rootRef);
 
     const handleChange = event => {
       if (!isControlled) {

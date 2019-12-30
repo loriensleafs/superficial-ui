@@ -1,6 +1,6 @@
-import * as React from 'react';
+import { useCallback, useLayoutEffect, useState } from 'react';
 
-const getDimensionObject = node => {
+function getDimensionObject(node) {
   const rect = node.getBoundingClientRect();
   return {
     width: rect.width,
@@ -10,23 +10,23 @@ const getDimensionObject = node => {
     x: 'x' in rect ? rect.x : rect.left,
     y: 'y' in rect ? rect.y : rect.top,
     right: rect.right,
-    bottom: rect.bottom
+    bottom: rect.bottom,
   };
-};
+}
 
-export const useDimensions = ({ liveMeasure = true } = {}) => {
-  const [dimensions, setDimensions] = React.useState({});
-  const [node, setNode] = React.useState(null);
+export function useDimensions({ liveMeasure = true } = {}) {
+  const [dimensions, setDimensions] = useState({});
+  const [node, setNode] = useState(null);
 
-  const ref = React.useCallback(node => {
+  const ref = useCallback(node => {
     setNode(node);
   }, []);
 
-  React.useLayoutEffect(() => {
+  useLayoutEffect(() => {
     if (node) {
       const measure = () =>
         window.requestAnimationFrame(() =>
-          setDimensions(getDimensionObject(node))
+          setDimensions(getDimensionObject(node)),
         );
       measure();
 
@@ -42,4 +42,6 @@ export const useDimensions = ({ liveMeasure = true } = {}) => {
   }, [node]);
 
   return [ref, dimensions, node];
-};
+}
+
+export default useDimensions;

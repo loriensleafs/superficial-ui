@@ -1,8 +1,8 @@
 import * as AriaHidden from 'aria-hidden';
-import * as React from 'react';
+import { useEffect } from 'react';
 
-export const useAriaHidden = (ref, shouldActivate) => {
-  React.useEffect(() => {
+export function useAriaHidden(ref, shouldActivate) {
+  useEffect(() => {
     if (!ref.current) return;
 
     let undoAriaHidden = null;
@@ -17,4 +17,6 @@ export const useAriaHidden = (ref, shouldActivate) => {
       }
     };
   }, [shouldActivate, ref]);
-};
+}
+
+export default useAriaHidden;

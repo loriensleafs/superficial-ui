@@ -1,6 +1,6 @@
-import * as React from 'react';
+import { useMemo } from 'react';
 
-export const assignRef = (ref, value) => {
+export function assignRef(ref, value) {
   if (ref === null) return;
   if (typeof ref === 'function') {
     ref(value);
@@ -11,10 +11,10 @@ export const assignRef = (ref, value) => {
       throw new Error(`Cannot assign value "${value}" to ref "${ref}"`);
     }
   }
-};
+}
 
-export const useMergeRefs = (...refs) => {
-  return React.useMemo(() => {
+export function useMergeRefs(...refs) {
+  return useMemo(() => {
     if (refs.every(ref => ref === null)) {
       return null;
     }
@@ -24,4 +24,6 @@ export const useMergeRefs = (...refs) => {
       });
     };
   }, refs);
-};
+}
+
+export default useMergeRefs;

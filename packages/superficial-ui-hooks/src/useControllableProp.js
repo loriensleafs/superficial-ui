@@ -1,9 +1,10 @@
-import * as React from 'react';
+import { useRef } from 'react';
 
-export const useControllableProp = (propValue, stateValue) => {
-  const { current: isControlled } = React.useRef(propValue !== undefined);
+export function useControllableProp(propValue, stateValue) {
+  const { current: isControlled } = useRef(propValue !== undefined);
   const value =
     isControlled && typeof propValue !== 'undefined' ? propValue : stateValue;
-
   return [isControlled, value];
-};
+}
+
+export default useControllableProp;

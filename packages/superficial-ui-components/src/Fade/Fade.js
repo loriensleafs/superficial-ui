@@ -1,4 +1,4 @@
-import { useForkRef } from '@superficial-ui/hooks';
+import { useMergeRefs } from '@superficial-ui/hooks';
 import { motion } from 'framer-motion';
 import PropTypes from 'prop-types';
 import * as React from 'react';
@@ -19,16 +19,16 @@ export const Fade = React.forwardRef(
       sx,
       ...props
     },
-    forwardedRef
+    forwardedRef,
   ) => {
     const ownRef = React.useRef(null);
-    const ref = useForkRef(ownRef, forwardedRef);
+    const ref = useMergeRefs(ownRef, forwardedRef);
     //const ref = forwardedRef ? forwardedRef : ownRef;
 
     return (
       <Component
         animate={{
-          opacity: inProp ? 1 : 0
+          opacity: inProp ? 1 : 0,
         }}
         as={motion.div}
         initial={{ opacity: inProp ? 0 : 1 }}
@@ -50,12 +50,12 @@ export const Fade = React.forwardRef(
         sx={sx}
       />
     );
-  }
+  },
 );
 Fade.uiName = 'Fade';
 Fade.displayName = 'Fade';
 Fade.defaultProps = {
-  duration: 0.5
+  duration: 0.5,
 };
 Fade.propTypes = {
   duration: PropTypes.number,
@@ -65,5 +65,5 @@ Fade.propTypes = {
   onEntering: PropTypes.func,
   onExit: PropTypes.func,
   onExited: PropTypes.func,
-  onExiting: PropTypes.func
+  onExiting: PropTypes.func,
 };
