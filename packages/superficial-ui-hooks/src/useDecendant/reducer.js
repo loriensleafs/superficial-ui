@@ -55,9 +55,9 @@ function register(state, action) {
 
 ////////////////////////////////////////////////////////////////
 
-function unRegister(state action) {
+function unRegister(state, action) {
   const { id } = action;
-  const newItems = state.items.filter(item => item.id !== id)
+  const newItems = state.items.filter(item => item.id !== id);
 
   if (newItems.length === state.items.length) {
     return state;
@@ -70,8 +70,8 @@ function unRegister(state action) {
         ? null
         : newItems[0]
       : state.selectedItem,
-    items: newItems
-  }
+    items: newItems,
+  };
 }
 
 ////////////////////////////////////////////////////////////////
@@ -86,7 +86,7 @@ function highlight(state, action) {
   };
 
   if (selectOnHighlight) {
-    nextState["selectedItem"] = item;
+    nextState['selectedItem'] = item;
   }
 
   return nextState;
@@ -106,7 +106,7 @@ function select(state, action) {
   };
 
   if (highlightOnSelect) {
-    newState["highlightedItem"] = item;
+    newState['highlightedItem'] = item;
   }
 
   return newState;
@@ -117,7 +117,7 @@ function select(state, action) {
 export function nextOrPrevious(state, action, type) {
   const { loop, action: keyAction } = action;
   const currentItem =
-    keyAction === "select" ? state.selectedItem : state.highlightedItem;
+    keyAction === 'select' ? state.selectedItem : state.highlightedItem;
 
   if (!currentItem) return state;
 
@@ -127,12 +127,12 @@ export function nextOrPrevious(state, action, type) {
     currentIndex: index,
     itemsLength: state.items.length,
     loop: loop || true,
-    step: type === "next" ? 1 : -1,
+    step: type === 'next' ? 1 : -1,
   });
 
   const nextItem = state.items[nextIndex];
 
-  if (keyAction === "select") {
+  if (keyAction === 'select') {
     return select(state, { item: nextItem });
   } else {
     return highlight(state, { item: nextItem });
@@ -144,11 +144,11 @@ export function nextOrPrevious(state, action, type) {
 export function firstOrLast(state, action, type) {
   const { action: keyAction } = action;
   const nextItem =
-    type === "first" ? state.items[0] : state.items[state.items.length - 1];
+    type === 'first' ? state.items[0] : state.items[state.items.length - 1];
 
   if (!nextItem) return state;
 
-  if (keyAction === "select") {
+  if (keyAction === 'select') {
     return select(state, { item: nextItem });
   } else {
     return highlight(state, { item: nextItem });
@@ -161,12 +161,12 @@ export function reset(state, action) {
   const { action: keyAction } = action;
   const newState = { ...state };
 
-  if (keyAction === "highlighted" || keyAction === "both") {
-    newState["highlightedItem"] = null;
+  if (keyAction === 'highlighted' || keyAction === 'both') {
+    newState['highlightedItem'] = null;
   }
 
-  if (keyAction === "selected" || keyAction === "both") {
-    newState["selectedItem"] = null;
+  if (keyAction === 'selected' || keyAction === 'both') {
+    newState['selectedItem'] = null;
   }
 
   return newState;
@@ -177,13 +177,13 @@ export function reset(state, action) {
 export function search(state, action) {
   const { characters, action: keyAction } = action;
   const currentItem =
-    keyAction === "select" ? state.selectedItem : state.highlightedItem;
+    keyAction === 'select' ? state.selectedItem : state.highlightedItem;
 
   const nextOption = getNextOptionFromKeys({
     items: state.items,
-    searchString: characters || "",
+    searchString: characters || '',
     itemToString: item => {
-      if (!item) return "";
+      if (!item) return '';
       return item.ref.current.textContent || String(item.value);
     },
     currentValue: currentItem,
@@ -192,10 +192,10 @@ export function search(state, action) {
   if (!nextOption) return state;
 
   const nextState = { ...state };
-  if (keyAction === "select") {
-    nextState["selectedItem"] = nextOption;
+  if (keyAction === 'select') {
+    nextState['selectedItem'] = nextOption;
   } else {
-    nextState["highlightedItem"] = nextOption;
+    nextState['highlightedItem'] = nextOption;
   }
 
   return nextState;
@@ -205,27 +205,27 @@ export function search(state, action) {
 
 export function descendantsReducer(state, action) {
   switch (action.type) {
-    case "REGISTER":
+    case 'REGISTER':
       return register(state, action);
-    case "UNREGISTER":
+    case 'UNREGISTER':
       return unRegister(state, action);
-    case "PREVIOUS":
-      return nextOrPrevious(state, action, "previous");
-    case "NEXT":
-      return nextOrPrevious(state, action, "next");
-    case "HIGHLIGHT":
+    case 'PREVIOUS':
+      return nextOrPrevious(state, action, 'previous');
+    case 'NEXT':
+      return nextOrPrevious(state, action, 'next');
+    case 'HIGHLIGHT':
       return highlight(state, action);
-    case "SELECT":
+    case 'SELECT':
       return select(state, action);
-    case "RESET":
+    case 'RESET':
       return reset(state, action);
-    case "SEARCH":
+    case 'SEARCH':
       return search(state, action);
-    case "FIRST":
-      return firstOrLast(state, action, "first");
-    case "LAST":
-      return firstOrLast(state, action, "last");
+    case 'FIRST':
+      return firstOrLast(state, action, 'first');
+    case 'LAST':
+      return firstOrLast(state, action, 'last');
     default:
-      throw new Error("Reducer called without proper action type.");
+      throw new Error('Reducer called without proper action type.');
   }
 }
