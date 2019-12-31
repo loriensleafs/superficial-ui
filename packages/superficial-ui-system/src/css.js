@@ -4,7 +4,7 @@ import {
   isFunction,
   isNumber,
   isObject,
-  functionElseValue,
+  callFnOrVal,
   isString,
   isThemeColor,
   toArray,
@@ -277,7 +277,7 @@ transformToPosOrNeg.props = [
 
 /** Matches partial color aliases to the theme's brand colors.  Allows for terse aliases. */
 const colorAliases = (scale, val, props) => {
-  const color = functionElseValue(val, scale);
+  const color = callFnOrVal(val, scale);
   return isThemeColor(color) ? scale[color].main : get(scale, color, color);
 };
 colorAliases.props = [
@@ -309,7 +309,7 @@ const transforms = [colorAliases, transformToPosOrNeg].reduce(
 
 export const css = args => (themeProp = {}) => {
   const theme = { ...defaultTheme, ...themeProp };
-  const obj = functionElseValue(args, theme);
+  const obj = callFnOrVal(args, theme);
   const styles = {
     ...pseudoAliases(obj)(theme),
     ...responsiveTransforms(obj)(theme),
@@ -321,7 +321,7 @@ export const css = args => (themeProp = {}) => {
     let val;
 
     try {
-      val = functionElseValue(x, theme);
+      val = callFnOrVal(x, theme);
     } catch (e) {
       continue;
     }

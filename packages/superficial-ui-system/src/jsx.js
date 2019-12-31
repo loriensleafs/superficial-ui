@@ -1,5 +1,8 @@
+/** @jsx jsx */
 import { jsx as emotion } from '@emotion/core';
+import { toArray } from '@superficial-ui/utils';
 import { css } from './css';
+import { toPseudo, transform } from './system';
 
 const getCSS = props => {
   if (!props.sx && !props.css) return undefined;
@@ -13,11 +16,13 @@ const getCSS = props => {
 
 const parseProps = props => {
   if (!props) return null;
+
   const next = {};
-  for (let key in props) {
+  for (const key in props) {
     if (key === 'sx') continue;
     next[key] = props[key];
   }
+
   next.css = getCSS(props);
   return next;
 };

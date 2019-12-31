@@ -1,18 +1,10 @@
+import { callFnOrVal, get, isThemeColor } from '@superficial-ui/utils';
 import * as SS from 'styled-system';
-import {
-  functionElseValue,
-  get,
-  isNumber,
-  isThemeColor,
-} from '@superficial-ui/utils';
 
 const getColor = (value, scale) => {
-  const color = functionElseValue(value, scale);
+  const color = callFnOrVal(value, scale);
   return isThemeColor(color) ? scale[color].main : get(scale, color, color);
 };
-
-const getSize = (n, scale) =>
-  !isNumber(n) || n > 1 ? get(scale, n, n) : n * 100 + '%';
 
 export const config = {
   roundedTop: {
@@ -57,37 +49,26 @@ export const config = {
   w: {
     property: 'width',
     scale: 'sizes',
-    transform: getSize,
   },
   minW: {
     property: 'minWidth',
     scale: 'sizes',
-    transform: getSize,
   },
   maxW: {
     property: 'maxWidth',
     scale: 'sizes',
-    transform: getSize,
   },
   h: {
     property: 'height',
     scale: 'sizes',
-    transform: getSize,
   },
   minH: {
     property: 'minHeight',
     scale: 'sizes',
-    transform: getSize,
   },
   maxH: {
     property: 'maxHeight',
     scale: 'sizes',
-    transform: getSize,
-  },
-  bg: {
-    property: 'backgroundColor',
-    scale: 'colors',
-    transform: getColor,
   },
   bgImg: {
     property: 'backgroundImage',
@@ -159,5 +140,6 @@ config.textDecor = config.textDecoration;
 config.listStylePos = config.listStylePosition;
 config.listStyleImg = config.listStyleImage;
 
-export const customProps = SS.system(config);
-export default customProps;
+export const custom = SS.system(config);
+
+export default custom;

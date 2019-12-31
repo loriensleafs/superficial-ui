@@ -1,7 +1,7 @@
 import * as SS from 'styled-system';
-import { customProps } from './customProps';
+import { custom } from './customProps';
 
-export const systemProps = SS.compose(
+export const system = SS.compose(
   SS.layout,
   SS.color,
   SS.space,
@@ -12,7 +12,7 @@ export const systemProps = SS.compose(
   SS.shadow,
   SS.typography,
   SS.zIndex,
-  customProps,
+  custom,
 );
 
 export const truncate = props => {
@@ -25,4 +25,4 @@ export const truncate = props => {
   }
 };
 
-export default systemProps;
+export default system;

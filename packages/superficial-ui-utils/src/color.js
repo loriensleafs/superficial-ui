@@ -5,7 +5,7 @@ import hslaRegex from 'hsla-regex';
 import * as P from 'polished';
 import rgbRegex from 'rgb-regex';
 import rgbaRegex from 'rgba-regex';
-import { functionElseValue } from './function';
+import { callFnOrVal } from './function';
 import { get } from './object';
 
 export const isRgb = string => rgbRegex({ exact: true }).test(string);
@@ -67,7 +67,7 @@ export const getAdjustment = (amount, theme) =>
   get(theme, 'colors.' + amount + '.opacity', amount);
 
 export const getColor = color => theme => {
-  const value = functionElseValue(color, theme);
+  const value = callFnOrVal(color, theme);
   return isThemeColor(value)
     ? theme.colors[value].main
     : get(

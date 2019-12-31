@@ -10,7 +10,7 @@ const VALID_PROPS = [
   'transition',
 ];
 
-const INVALID_PROPS = [
+const shouldForwardProp = SS.createShouldForwardProp([
   ...SS.props,
   'cursor',
   'd',
@@ -26,14 +26,14 @@ const INVALID_PROPS = [
   'w',
   'wMax',
   'wMin',
-];
-
-const shouldForwardProp = SS.createShouldForwardProp([
-  ...SS.props,
-  ...INVALID_PROPS,
 ]);
 
-export const isPropValid = prop =>
-  VALID_PROPS.includes(prop) ? true : shouldForwardProp(prop);
+export function isPropValid(prop) {
+  if (VALID_PROPS.includes(prop)) {
+    return true;
+  } else {
+    return shouldForwardProp(prop);
+  }
+}
 
 export default isPropValid;

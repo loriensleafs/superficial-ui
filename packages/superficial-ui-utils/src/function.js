@@ -1,9 +1,46 @@
 import { merge } from './object';
 import { isNil, isFunction } from './assertions';
 
-export const debounce = (func, wait = 166) => {
-  let timeout;
+export function callFnOrVal(fn, args) {
+  if (isFunction(fn)) return fn(args);
+  return fn;
+}
 
+export function compose(...args) {
+  return props =>
+    args.reduce(
+      (acc, arg) => merge(acc, typeof arg === 'function' ? arg(props) : arg),
+      {},
+    );
+}
+
+export function composeFunctions(...fns) {
+  return (...args) => fns.forEach(fn => fn && fn(...args));
+}
+
+export function composeEventHandlers(...fns) {
+  return event =>
+    fns.some(fn => {
+      fn && fn(event);
+      return event && event.defaultPrevented;
+    });
+}
+
+export function createChainedFunction(...fns) {
+  return fns.reduce(
+    (acc, fn) => {
+      if (fn == null) return acc;
+      return function chainedFunction(...args) {
+        acc.apply(this, args);
+        fn.apply(this, args);
+      };
+    },
+    () => {},
+  );
+}
+
+export function debounce(func, wait = 166) {
+  let timeout;
   function debounced(...args) {
     const that = this;
     const later = () => func.apply(that, args);
@@ -12,39 +49,9 @@ export const debounce = (func, wait = 166) => {
   }
   debounced.clear = () => clearTimeout(timeout);
   return debounced;
-};
+}
 
-export const compose = (...args) => props =>
-  args.reduce(
-    (acc, arg) => merge(acc, typeof arg === 'function' ? arg(props) : arg),
-    {},
-  );
-
-export const composeFunctions = (...fns) => (...args) =>
-  fns.forEach(fn => fn && fn(...args));
-
-export const composeEventHandlers = (...fns) => event =>
-  fns.some(fn => {
-    fn && fn(event);
-    return event && event.defaultPrevented;
-  });
-
-export const createChainedFunction = (...funcs) =>
-  funcs.reduce(
-    (acc, func) => {
-      if (func == null) return acc;
-      return function chainedFunction(...args) {
-        acc.apply(this, args);
-        func.apply(this, args);
-      };
-    },
-    () => {},
-  );
-
-export const functionElseValue = (fn, args) =>
-  !isNil(fn) && isFunction(fn) ? fn(args) : fn;
-
-export const resolveCallback = (resolveCallback, event) => {
+export function resolveCallback(resolveCallback, event) {
   if (typeof callback === 'function') return callback(event);
   return callback;
-};
+}
