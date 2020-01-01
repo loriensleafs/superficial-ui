@@ -1,7 +1,7 @@
 import { merge } from './object';
 import { isNil, isFunction } from './assertions';
 
-export function callFnOrVal(fn, args) {
+export function runIfFn(fn, args) {
   if (isFunction(fn)) return fn(args);
   return fn;
 }

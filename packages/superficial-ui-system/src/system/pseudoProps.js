@@ -1,5 +1,21 @@
-import { css } from '../css';
+import { css } from 'theme-ui';
 import tx from './transformProps';
+
+const hasUnderscore = str => str.startsWith('_');
+const stripUnderscore = str => str.slice(1, str.length);
+
+export const transformPseudo = props => {
+  const next = {};
+  for (const prop in props) {
+    if (hasUnderscore(prop)) {
+      const newProp = stripUnderscore(prop);
+      next[selectors[newProp]] = props[prop];
+    } else {
+      next[prop] = props[prop];
+    }
+  }
+  return next;
+};
 
 export const selectors = {
   hover: '&:hover, &[data-hover]',
@@ -30,22 +46,6 @@ export const selectors = {
   focusWithin: '&:focus-within',
   placeholder: '&::placeholder',
   hidden: '&[hidden]',
-};
-
-const hasUnderscore = str => str.startsWith('_');
-const stripUnderscore = str => str.slice(1, str.length);
-
-export const toPseudo = props => {
-  const next = {};
-  for (const prop in props) {
-    if (hasUnderscore(prop)) {
-      const newProp = stripUnderscore(prop);
-      next[selectors[newProp]] = props[prop];
-    } else {
-      next[prop] = props[prop];
-    }
-  }
-  return next;
 };
 
 export const pseudo = ({ theme, ...props }) =>

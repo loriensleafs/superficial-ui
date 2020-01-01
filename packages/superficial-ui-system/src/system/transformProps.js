@@ -21,11 +21,11 @@ const transformProp = (prop, propValue) => {
   return result;
 };
 
-export const transform = props => {
+export const transformProps = props => {
   let result = null;
   for (let prop in props) {
     if (typeof props[prop] === 'object') {
-      result = { ...result, [prop]: transform(props[prop]) };
+      result = { ...result, [prop]: transformProps(props[prop]) };
     } else {
       result = { ...result, ...transformProp(prop, props[prop]) };
     }
@@ -33,4 +33,4 @@ export const transform = props => {
   return result;
 };
 
-export default transform;
+export default transformProps;

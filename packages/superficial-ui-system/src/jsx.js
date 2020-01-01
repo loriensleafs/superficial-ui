@@ -16,7 +16,6 @@ const getCSS = props => {
 
 const parseProps = props => {
   if (!props) return null;
-
   const next = {};
   for (const key in props) {
     if (key === 'sx') continue;

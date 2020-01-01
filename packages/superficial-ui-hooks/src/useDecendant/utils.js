@@ -1,3 +1,6 @@
+import { useRef } from 'react';
+import popperjs from 'popper.js';
+
 export function getNextIndex({ step = 1, currentIndex, itemsLength, loop }) {
   if (currentIndex === -1) {
     return step > 0 ? 0 : itemsLength - 1;
@@ -28,9 +31,6 @@ export function getItemIndex(items, item) {
 
 ////////////////////////////////////////////////////////////////
 
-/**
- * Gets the next highlighted or selected option based on the typed characters.
- */
 export function getNextOptionFromKeys({
   items,
   searchString,

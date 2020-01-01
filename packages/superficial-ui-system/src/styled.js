@@ -24,7 +24,7 @@ import { isPropValid, system, truncate } from './system';
 //     const variant = get(themeBase, scale + '.' + props[prop]);
 //     if (!variant) return;
 
-//     const style = css(toPseudo(callFnOrVal(variant, props)))(props.theme);
+//     const style = css(toPseudo(runIfFn(variant, props)))(props.theme);
 //     styles = { ...styles, ...style };
 //   });
 //   return styles;

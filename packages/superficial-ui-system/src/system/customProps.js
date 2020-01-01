@@ -1,8 +1,8 @@
-import { callFnOrVal, get, isThemeColor } from '@superficial-ui/utils';
+import { runIfFn, get, isThemeColor } from '@superficial-ui/utils';
 import * as SS from 'styled-system';
 
 const getColor = (value, scale) => {
-  const color = callFnOrVal(value, scale);
+  const color = runIfFn(value, scale);
   return isThemeColor(color) ? scale[color].main : get(scale, color, color);
 };
 

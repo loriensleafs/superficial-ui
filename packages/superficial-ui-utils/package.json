@@ -23,5 +23,8 @@
   },
   "license": "MIT",
   "gitHead": "96a49d575cfaf1fac84f631fa44f10e5b2f823f0",
-  "repository": "git@github.com:loriensleafs/superficial-ui.git"
+  "repository": "git@github.com:loriensleafs/superficial-ui.git",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  }
 }
