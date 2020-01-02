@@ -2,7 +2,13 @@
 import { forwardRef, jsx } from '@superficial-ui/system';
 import { debounce } from '@superficial-ui/utils';
 import PropTypes from 'prop-types';
-import { useCallback, useEffect, useMemo, useRef } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useImperativeHandle,
+} from 'react';
 import { Modal } from '../Modal';
 import { ownerDocument, ownerWindow } from '../Modal/utils';
 import { Paper } from '../Paper';
@@ -245,11 +251,10 @@ export const Popover = forwardRef(
 
     /* ---------------------------------------------------------------------- */
 
-    React.useImperativeHandle(
-      action,
-      () => (isOpen ? { updatePosition } : null),
-      [isOpen, updatePosition],
-    );
+    useImperativeHandle(action, () => (isOpen ? { updatePosition } : null), [
+      isOpen,
+      updatePosition,
+    ]);
 
     /* ---------------------------------------------------------------------- */
 
