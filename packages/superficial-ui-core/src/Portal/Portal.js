@@ -1,20 +1,22 @@
-import { useMergeRefs, useIsomorphicEffect } from '@superficial-ui/hooks';
+/** @jsx jsx */
+import { useIsomorphicEffect, useMergeRefs } from '@superficial-ui/hooks';
+import { jsx, forwardRef } from '@superficial-ui/system';
 import PropTypes from 'prop-types';
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import { useRef, useState } from 'react';
+import { createPortal, findDOMNode } from 'react-dom';
 
 const getContainer = container => {
   container = typeof container === 'function' ? container() : container;
-  return ReactDOM.findDOMNode(container);
+  return findDOMNode(container);
 };
 
-export const Portal = React.forwardRef(
+export const Portal = forwardRef(
   (
     { children, container, isDisabled = false, onRendered, ...props },
     forwardedRef,
   ) => {
-    const [mountNode, setMountNode] = React.useState(null);
-    const ownRef = React.useRef(null);
+    const [mountNode, setMountNode] = useState(null);
+    const ownRef = useRef(null);
     const ref = useMergeRefs(ownRef, forwardedRef);
 
     useIsomorphicEffect(() => {
@@ -47,7 +49,7 @@ export const Portal = React.forwardRef(
       return children;
     }
 
-    return mountNode ? ReactDOM.createPortal(children, mountNode) : mountNode;
+    return mountNode ? createPortal(children, mountNode) : mountNode;
   },
 );
 Portal.uiName = 'Portal';

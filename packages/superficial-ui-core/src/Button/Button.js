@@ -1,10 +1,5 @@
-import PropTypes from 'prop-types';
-import * as React from 'react';
-import { Box } from '../Box';
-import { ButtonBase } from '../ButtonBase';
-import { Icon } from '../Icon';
-import { Spinner } from '../Spinner';
-import { useRipples } from '../useRipples';
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import {
   darken,
   fade,
@@ -12,6 +7,13 @@ import {
   isThemeColor,
   transition,
 } from '@superficial-ui/utils';
+import PropTypes from 'prop-types';
+import { useCallback } from 'react';
+import { Box } from '../Box';
+import { ButtonBase } from '../ButtonBase';
+import { Icon } from '../Icon';
+import { Spinner } from '../Spinner';
+import { useRipples } from '../useRipples';
 
 const ButtonIcon = ({ children, size, ...props }) => (
   <Icon focusable='false' size={size} {...props}>
@@ -19,7 +21,7 @@ const ButtonIcon = ({ children, size, ...props }) => (
   </Icon>
 );
 
-export const Button = React.forwardRef(
+export const Button = forwardRef(
   (
     {
       children,
@@ -44,7 +46,7 @@ export const Button = React.forwardRef(
   ) => {
     const ink = useRipples();
 
-    const handleBlur = React.useCallback(
+    const handleBlur = useCallback(
       event => {
         if (onBlur) onBlur(event);
         if (ink.onBlur) ink.onBlur(event);
@@ -52,7 +54,7 @@ export const Button = React.forwardRef(
       [onBlur, ink.onBlur],
     );
 
-    const handleFocus = React.useCallback(
+    const handleFocus = useCallback(
       event => {
         if (onFocus) onFocus(event);
         if (ink.onFocus) ink.onFocus(event);
@@ -60,7 +62,7 @@ export const Button = React.forwardRef(
       [onFocus, ink.onFocus],
     );
 
-    const handleMouseDown = React.useCallback(
+    const handleMouseDown = useCallback(
       event => {
         if (onMouseDown) onMouseDown(event);
         if (ink.onMouseDown) ink.onMouseDown(event);
@@ -68,7 +70,7 @@ export const Button = React.forwardRef(
       [onMouseDown, ink.onMouseDown],
     );
 
-    const handleMouseUp = React.useCallback(
+    const handleMouseUp = useCallback(
       event => {
         if (onMouseUp) onMouseUp(event);
         if (ink.onMouseUp) ink.onMouseUp(event);

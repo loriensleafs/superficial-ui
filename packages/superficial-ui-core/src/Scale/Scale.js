@@ -1,9 +1,11 @@
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import { motion } from 'framer-motion';
 import PropTypes from 'prop-types';
-import * as React from 'react';
+import { useRef } from 'react';
 import { Box } from '../Box';
 
-export const Scale = React.forwardRef(
+export const Scale = forwardRef(
   (
     {
       as: Component = Box,
@@ -21,7 +23,7 @@ export const Scale = React.forwardRef(
     },
     forwardedRef,
   ) => {
-    const ownRef = React.useRef(null);
+    const ownRef = useRef(null);
     const ref = forwardedRef ? forwardedRef : ownRef;
 
     return (

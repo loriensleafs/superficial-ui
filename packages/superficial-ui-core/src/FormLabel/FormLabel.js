@@ -1,8 +1,9 @@
-import * as React from 'react';
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import { Box } from '../Box';
 import { useFormControl } from '../FormControl';
 
-export const FormLabel = React.forwardRef((props, ref) => {
+export const FormLabel = forwardRef((props, ref) => {
   const [
     {
       as, // Only to prevent passing onward

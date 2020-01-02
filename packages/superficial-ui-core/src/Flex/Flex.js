@@ -1,8 +1,9 @@
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import PropTypes from 'prop-types';
-import * as React from 'react';
 import { Box } from '../Box';
 
-export const Flex = React.forwardRef(
+export const Flex = forwardRef(
   (
     {
       align,

@@ -1,16 +1,16 @@
-import * as React from 'react';
 import { useControllableProp } from '@superficial-ui/hooks';
 import { isObject } from '@superficial-ui/utils';
+import { useCallback, useState } from 'react';
 
 export const useCheckboxGroup = ({
   defaultValue,
   onChange,
   value: valueProp,
 }) => {
-  const [value, setValue] = React.useState(defaultValue || []);
+  const [value, setValue] = useState(defaultValue || []);
   const [isControlled, currentValue] = useControllableProp(valueProp, value);
 
-  const handleChange = React.useCallback(
+  const handleChange = useCallback(
     (event, val) => {
       if (!currentValue) return;
       const seleted = isObject(event) ? event.target.value : val;

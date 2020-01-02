@@ -1,17 +1,18 @@
-import * as React from 'react';
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
+import { fade, transition } from '@superficial-ui/utils';
 import { SelectControl } from '../SelectControl';
 import {
   CheckBoxIcon,
   CheckBoxOutlineBlankIcon,
   IndeterminateCheckBoxIcon,
 } from '../svgs';
-import { fade, transition } from '@superficial-ui/utils';
 
 const defaultCheckedIcon = <CheckBoxIcon />;
 const defaultIcon = <CheckBoxOutlineBlankIcon />;
 const defaultIndeterminateIcon = <IndeterminateCheckBoxIcon />;
 
-export const Checkbox = React.forwardRef((props, ref) => {
+export const Checkbox = forwardRef((props, ref) => {
   const {
     checkedIcon = defaultCheckedIcon,
     color = 'secondary',

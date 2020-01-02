@@ -1,12 +1,13 @@
+/** @jsx jsx */
 import { ArrowDownwardIcon } from '@superficial-ui/icons';
+import { forwardRef, jsx } from '@superficial-ui/system';
 import { transition } from '@superficial-ui/utils';
-import * as React from 'react';
 import { Box } from '../Box';
 
 /**
  * A button based label for placing inside 'TableCell' for column sorting.
  */
-export const TableSortLabel = React.forwardRef((props, ref) => {
+export const TableSortLabel = forwardRef((props, ref) => {
   const {
     children,
     active = false,

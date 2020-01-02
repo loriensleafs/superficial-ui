@@ -1,9 +1,17 @@
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import { ownerDocument } from '@superficial-ui/utils';
 import PropTypes from 'prop-types';
-import * as React from 'react';
+import {
+  Children,
+  cloneElement,
+  isValidElement,
+  useEffect,
+  useRef,
+} from 'react';
 import { List } from '../List';
 
-/* -------------------------------------------------------------------------- */
+////////////////////////////////////////////////////////////////////////////////
 
 const nextItem = (list, item, disableListWrap) => {
   if (list === item) {
@@ -15,7 +23,7 @@ const nextItem = (list, item, disableListWrap) => {
   return disableListWrap ? null : list.firstChild;
 };
 
-/* -------------------------------------------------------------------------- */
+////////////////////////////////////////////////////////////////////////////////
 
 const previousItem = (list, item, disableListWrap) => {
   if (list === item) {
@@ -27,7 +35,7 @@ const previousItem = (list, item, disableListWrap) => {
   return disableListWrap ? null : list.lastChild;
 };
 
-/* -------------------------------------------------------------------------- */
+////////////////////////////////////////////////////////////////////////////////
 
 const textCriteriaMatches = (nextFocus, textCriteria) => {
   if (textCriteria === undefined) return true;
@@ -48,7 +56,7 @@ const textCriteriaMatches = (nextFocus, textCriteria) => {
   return text.indexOf(textCriteria.keys.join('')) === 0;
 };
 
-/* -------------------------------------------------------------------------- */
+////////////////////////////////////////////////////////////////////////////////
 
 const moveFocus = (
   list,
@@ -87,11 +95,9 @@ const moveFocus = (
   return false;
 };
 
-/* -------------------------------------------------------------------------- */
-/*                             MENU LIST COMPONENT                            */
-/* -------------------------------------------------------------------------- */
+////////////////////////////////////////////////////////////////////////////////
 
-export const MenuList = React.forwardRef(
+export const MenuList = forwardRef(
   (
     {
       actions,
@@ -105,24 +111,24 @@ export const MenuList = React.forwardRef(
     },
     forwardedRef,
   ) => {
-    const textCriteriaRef = React.useRef({
+    const textCriteriaRef = useRef({
       keys: [],
       repeating: true,
       previousKeyMatched: true,
       lastTime: null,
     });
-    const ownRef = React.useRef(null);
+    const ownRef = useRef(null);
     const ref = forwardedRef ? forwardedRef : ownRef;
 
-    /* -------------------------------------------------------------------------- */
+    /* ---------------------------------------------------------------------- */
 
-    React.useEffect(() => {
+    useEffect(() => {
       if (autoFocus) {
         ref.current.focus();
       }
     }, [autoFocus]);
 
-    /* -------------------------------------------------------------------------- */
+    /* ---------------------------------------------------------------------- */
 
     const handleKeyDown = event => {
       const key = event.key;
@@ -179,7 +185,7 @@ export const MenuList = React.forwardRef(
       }
     };
 
-    /* -------------------------------------------------------------------------- */
+    /* ---------------------------------------------------------------------- */
 
     /**
      * The index of the item should recieve focus.
@@ -192,8 +198,8 @@ export const MenuList = React.forwardRef(
      * to check for a `selected` item.  We are looking for the last `selected`
      * item.  The first valid item should be used as a fallback.
      */
-    React.Children.forEach(children, (child, index) => {
-      if (!React.isValidElement(child)) return;
+    Children.forEach(children, (child, index) => {
+      if (!isValidElement(child)) return;
 
       if (!child.props.isDisabled) {
         if (child.props.isSelected) {
@@ -204,7 +210,7 @@ export const MenuList = React.forwardRef(
       }
     });
 
-    const items = React.Children.map(children, (child, index) => {
+    const items = Children.map(children, (child, index) => {
       if (index === activeItemIndex) {
         const newChildProps = {};
 
@@ -216,14 +222,14 @@ export const MenuList = React.forwardRef(
         }
 
         if (newChildProps !== null) {
-          return React.cloneElement(child, newChildProps);
+          return cloneElement(child, newChildProps);
         }
       }
 
       return child;
     });
 
-    /* -------------------------------------------------------------------------- */
+    /* ---------------------------------------------------------------------- */
 
     return (
       <List
@@ -252,3 +258,5 @@ MenuList.propTypes = {
   onKeyDown: PropTypes.func,
   disableListWrap: PropTypes.bool,
 };
+
+////////////////////////////////////////////////////////////////////////////////

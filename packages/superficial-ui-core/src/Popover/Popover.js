@@ -1,6 +1,8 @@
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import { debounce } from '@superficial-ui/utils';
 import PropTypes from 'prop-types';
-import * as React from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { Modal } from '../Modal';
 import { ownerDocument, ownerWindow } from '../Modal/utils';
 import { Paper } from '../Paper';
@@ -17,7 +19,7 @@ import {
 /*                              POPOVER COMPONENT                             */
 /* -------------------------------------------------------------------------- */
 
-export const Popover = React.forwardRef(
+export const Popover = forwardRef(
   (
     {
       action,
@@ -45,12 +47,12 @@ export const Popover = React.forwardRef(
     },
     forwardedRef,
   ) => {
-    const paperRef = React.useRef();
+    const paperRef = useRef();
 
-    /* -------------------------------------------------------------------------- */
+    /* ---------------------------------------------------------------------- */
 
     /** Returns the top/left offsets of the position used to attach the anchor. */
-    const getAnchorOffset = React.useCallback(
+    const getAnchorOffset = useCallback(
       contentAnchorOffset => {
         if (anchorReference === 'anchorPosition') {
           return anchorPosition;
@@ -84,10 +86,10 @@ export const Popover = React.forwardRef(
       ],
     );
 
-    /* -------------------------------------------------------------------------- */
+    /* ---------------------------------------------------------------------- */
 
     /** Returns the inner content vertical offset that is used to anchor the transform. */
-    const getContentAnchorOffset = React.useCallback(
+    const getContentAnchorOffset = useCallback(
       element => {
         let contentAnchorOffset = 0;
 
@@ -108,10 +110,10 @@ export const Popover = React.forwardRef(
       [anchorOrigin.vertical, anchorReference, getContentAnchorEl],
     );
 
-    /* -------------------------------------------------------------------------- */
+    /* ---------------------------------------------------------------------- */
 
     /** Returns the base transform origin using the element and content anchor offset. */
-    const getTransformOrigin = React.useCallback(
+    const getTransformOrigin = useCallback(
       (elemRect, contentAnchorOffset = 0) => {
         return {
           vertical:
@@ -123,9 +125,9 @@ export const Popover = React.forwardRef(
       [transformOrigin.horizontal, transformOrigin.vertical],
     );
 
-    /* -------------------------------------------------------------------------- */
+    /* ---------------------------------------------------------------------- */
 
-    const getPositioningStyle = React.useCallback(
+    const getPositioningStyle = useCallback(
       element => {
         /** Check if the parent has requested anchoring on an inner content node. */
         const contentAnchorOffset = getContentAnchorOffset(element);
@@ -202,9 +204,9 @@ export const Popover = React.forwardRef(
       ],
     );
 
-    /* -------------------------------------------------------------------------- */
+    /* ---------------------------------------------------------------------- */
 
-    const setPositioningStyles = React.useCallback(
+    const setPositioningStyles = useCallback(
       element => {
         const positioning = getPositioningStyle(element);
 
@@ -221,7 +223,7 @@ export const Popover = React.forwardRef(
       [getPositioningStyle],
     );
 
-    /* -------------------------------------------------------------------------- */
+    /* ---------------------------------------------------------------------- */
 
     const handleEntering = element => {
       if (onEntering) {
@@ -231,9 +233,9 @@ export const Popover = React.forwardRef(
       setPositioningStyles(paperRef.current);
     };
 
-    /* -------------------------------------------------------------------------- */
+    /* ---------------------------------------------------------------------- */
 
-    const updatePosition = React.useMemo(() => {
+    const updatePosition = useMemo(() => {
       if (!isOpen) return undefined;
 
       return debounce(() => {
@@ -241,7 +243,7 @@ export const Popover = React.forwardRef(
       });
     }, [isOpen, setPositioningStyles]);
 
-    /* -------------------------------------------------------------------------- */
+    /* ---------------------------------------------------------------------- */
 
     React.useImperativeHandle(
       action,
@@ -249,9 +251,9 @@ export const Popover = React.forwardRef(
       [isOpen, updatePosition],
     );
 
-    /* -------------------------------------------------------------------------- */
+    /* ---------------------------------------------------------------------- */
 
-    React.useEffect(() => {
+    useEffect(() => {
       if (!updatePosition) return undefined;
 
       window.addEventListener('resize', updatePosition);
@@ -261,7 +263,7 @@ export const Popover = React.forwardRef(
       };
     }, [updatePosition]);
 
-    /* -------------------------------------------------------------------------- */
+    /* ---------------------------------------------------------------------- */
 
     /**
      * If the container prop is provided, use it.
@@ -272,7 +274,7 @@ export const Popover = React.forwardRef(
       containerProp ||
       (anchorEl ? ownerDocument(getAnchorEl(anchorEl)).body : undefined);
 
-    /* -------------------------------------------------------------------------- */
+    /* ---------------------------------------------------------------------- */
 
     return (
       <Modal

@@ -1,8 +1,9 @@
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import { transition } from '@superficial-ui/utils';
-import * as React from 'react';
 import { Box } from '../Box';
 
-export const NotchedOutline = React.forwardRef(
+export const NotchedOutline = forwardRef(
   ({ isNotched, labelWidth: labelWidthProp }, ref) => {
     const labelWidth = labelWidthProp > 0 ? labelWidthProp * 0.75 + 18 : 0;
 

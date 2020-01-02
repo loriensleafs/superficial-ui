@@ -1,7 +1,9 @@
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import { get, isUIElement } from '@superficial-ui/utils';
 import PropTypes from 'prop-types';
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import { cloneElement, useCallback, useRef, useState } from 'react';
+import { findDOMNode } from 'react-dom';
 import { Box } from '../Box';
 import { Portal } from '../Portal';
 import { makeModalManager } from './modalManager';
@@ -10,7 +12,7 @@ import { ariaHidden, ownerDocument } from './utils';
 
 const getContainer = container => {
   container = typeof container === 'function' ? container() : container;
-  return ReactDOM.findDOMNode(container);
+  return findDOMNode(container);
 };
 
 const manager = makeModalManager();
@@ -19,7 +21,7 @@ const manager = makeModalManager();
 /*                               MODAL COMPONENT                              */
 /* -------------------------------------------------------------------------- */
 
-export const Modal = React.forwardRef(
+export const Modal = forwardRef(
   (
     {
       backdropIsHidden,
@@ -43,11 +45,11 @@ export const Modal = React.forwardRef(
     },
     forwardedRef,
   ) => {
-    const [hasExited, setExited] = React.useState(true);
-    const modal = React.useRef({});
-    const ownRef = React.useRef(null);
+    const [hasExited, setExited] = useState(true);
+    const modal = useRef({});
+    const ownRef = useRef(null);
     const modalRef = forwardedRef ? forwardedRef : ownRef;
-    const mountNodeRef = React.useRef(null);
+    const mountNodeRef = useRef(null);
     const hasTransition =
       isUIElement(children, ['Collapse', 'Fade', 'Scale', 'SlideIn']) ||
       get(children, 'props.in', false);
@@ -86,7 +88,7 @@ export const Modal = React.forwardRef(
 
     /* ---------------------------------------------------------------------- */
 
-    const isTopModal = React.useCallback(() => {
+    const isTopModal = useCallback(() => {
       return manager.isTopModal(getModal());
     }, [manager]);
 
@@ -109,19 +111,19 @@ export const Modal = React.forwardRef(
 
     /* ---------------------------------------------------------------------- */
 
-    const handleClose = React.useCallback(() => {
+    const handleClose = useCallback(() => {
       manager.remove(getModal());
     }, [manager]);
 
     /* ---------------------------------------------------------------------- */
 
-    React.useEffect(() => {
+    useEffect(() => {
       return () => handleClose();
     }, [handleClose]);
 
     /* ---------------------------------------------------------------------- */
 
-    React.useEffect(() => {
+    useEffect(() => {
       if (isOpen) {
         handleOpen();
       } else if (!hasTransition) {
@@ -228,7 +230,7 @@ export const Modal = React.forwardRef(
               onClick={handleBackdropClick}
             />
           )}
-          {React.cloneElement(children, childProps)}
+          {cloneElement(children, childProps)}
         </Box>
       </Portal>
     );

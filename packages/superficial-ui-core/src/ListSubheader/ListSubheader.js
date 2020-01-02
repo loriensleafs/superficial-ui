@@ -1,8 +1,9 @@
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import PropTypes from 'prop-types';
-import * as React from 'react';
 import { Box } from '../Box';
 
-export const ListSubheader = React.forwardRef(
+export const ListSubheader = forwardRef(
   ({ as, color, isInset, isSticky, guttersAreDisabled, ...props }, ref) => (
     <Box
       as={as}

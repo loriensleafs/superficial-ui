@@ -1,10 +1,11 @@
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import PropTypes from 'prop-types';
-import * as React from 'react';
 import { Box } from '../Box';
 
 const MEDIA = ['video', 'audio', 'picture', 'iframe', 'img'];
 
-export const CardMedia = React.forwardRef(
+export const CardMedia = forwardRef(
   ({ as, children, image, src, sx, ...props }, ref) => (
     <Box
       as={as}

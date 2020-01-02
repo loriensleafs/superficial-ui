@@ -1,6 +1,8 @@
-import * as React from 'react';
-import { Box } from '../Box';
+/** @jsx jsx */
+import { jsx } from '@superficial-ui/system';
 import { getProps } from '@superficial-ui/utils';
+import { Children, cloneElement, isValidElement } from 'react';
+import { Box } from '../Box';
 import { useCheckboxGroup } from './useCheckboxGroup';
 
 const omitProps = getProps(
@@ -15,9 +17,9 @@ export const CheckboxGroup = ({
   ...props
 }) => {
   const group = useCheckboxGroup(props);
-  const clones = React.Children.map(children, (child, index) => {
-    if (!React.isValidElement(child)) return;
-    const isLastCheckbox = React.Children.count(children) === index + 1;
+  const clones = Children.map(children, (child, index) => {
+    if (!isValidElement(child)) return;
+    const isLastCheckbox = Children.count(children) === index + 1;
     const spacingProps = isInline ? { mr: spacing } : { mb: spacing };
 
     return (
@@ -27,7 +29,7 @@ export const CheckboxGroup = ({
           ...(!isLastCheckbox && spacingProps),
         }}
       >
-        {React.cloneElement(child, {
+        {cloneElement(child, {
           color,
           onChange: event => group.onChange(event, child.props.value),
           isChecked: group.value.includes(child.props.value),

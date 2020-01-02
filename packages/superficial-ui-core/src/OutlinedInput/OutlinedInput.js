@@ -1,10 +1,11 @@
-import * as React from 'react';
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import { useFormControl } from '../FormControl';
 import { InputBase } from '../InputBase';
 import { InputControl } from '../InputControl';
 import { NotchedOutline } from './NotchedOutline';
 
-const Control = React.forwardRef(
+const Control = forwardRef(
   ({ endAddon, isDense, startAddon, ...props }, ref) => (
     <InputControl
       isDense={isDense}
@@ -30,7 +31,7 @@ const Control = React.forwardRef(
   ),
 );
 
-export const OutlinedInput = React.forwardRef((props, ref) => {
+export const OutlinedInput = forwardRef((props, ref) => {
   const [
     {
       as,

@@ -1,9 +1,10 @@
-import * as React from 'react';
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import { Box } from '../Box';
 import { FormControlContext, useFormControl } from '../FormControl';
 import { Text } from '../Text';
 
-export const InputAddon = React.forwardRef((props, ref) => {
+export const InputAddon = forwardRef((props, ref) => {
   const [
     {
       children,

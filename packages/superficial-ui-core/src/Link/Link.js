@@ -1,8 +1,9 @@
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import { transition } from '@superficial-ui/utils';
-import * as React from 'react';
 import { Box } from '../Box';
 
-export const Link = React.forwardRef(
+export const Link = forwardRef(
   ({ isDisabled, isExternal, onClick, ...props }, ref) => {
     const externalProps = isExternal
       ? { target: '_blank', rel: 'noopener noreferrer' }

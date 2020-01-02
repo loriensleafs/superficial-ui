@@ -1,5 +1,6 @@
+/** @jsx jsx */
+import { jsx } from '@superficial-ui/system';
 import { transition } from '@superficial-ui/utils';
-import React from 'react';
 import { Box } from '../Box';
 import { RadioButtonCheckedIcon, RadioButtonUncheckedIcon } from '../svgs';
 

@@ -1,5 +1,7 @@
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import { get, isNil } from '@superficial-ui/utils';
-import * as React from 'react';
+import { Children } from 'react';
 import { useFormControl } from '../FormControl';
 import { P, Text } from '../Text';
 
@@ -11,7 +13,7 @@ const isSelectControl = child =>
 const getControlProps = (child, props) => (a, p) =>
   isNil(child.props[p]) && !isNil(props[p]) ? { ...a, [p]: props[p] } : a;
 
-export const FormControlLabel = React.forwardRef((props, ref) => {
+export const FormControlLabel = forwardRef((props, ref) => {
   const [
     {
       children,
@@ -41,9 +43,9 @@ export const FormControlLabel = React.forwardRef((props, ref) => {
         cursor: isDisabled ? 'not-allowed' : 'pointer',
       }}
     >
-      {React.Children.map(children, child =>
+      {Children.map(children, child =>
         isSelectControl(child) ? (
-          React.cloneElement(
+          cloneElement(
             child,
             [
               'color',

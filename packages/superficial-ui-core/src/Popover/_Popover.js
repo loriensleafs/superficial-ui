@@ -1,33 +1,44 @@
 /** @jsx jsx */
 import {
-  useDisclosure,
-  useMergeRefs,
-  useIds,
-  useDescendant,
-  useDescendants,
   useBlurOutside,
+  useDisclosure,
   useFocusOnHide,
   useFocusOnShow,
+  useIds,
+  useMergeRefs,
 } from '@superficial-ui/hooks';
+import { jsx } from '@superficial-ui/system';
 import {
+  composeEventHandlers,
   createContext,
   createOnKeyDown,
-  composeEventHandlers,
-  ensureFocus,
 } from '@superficial-ui/utils';
-import React, {
-  cloneElement,
-  forwardRef,
-  useEffect,
-  useRef,
-  useLayoutEffect,
-} from 'react';
+import { cloneElement, useLayoutEffect, useRef } from 'react';
 import FocusLock from 'react-focus-lock';
-import { Modal } from '../Modal/_Modal';
 import { Box } from '../Box';
 
 ////////////////////////////////////////////////////////////////////////////////
 
+/**
+ * PopoverContext interface
+ * @prop {string} headerId
+ * @prop {string} bodyId
+ * @prop {Object} options
+ *  @prop {boolean} options.closeOnEsc
+ *  @prop {boolean} options.closeOnBlur
+ *  @prop {boolean} options.matchTriggerWidth
+ *  @prop {boolean} options.usePortal
+ *  @prop {boolean} options.returnFocusOnClose
+ *  @prop {boolean} options.tripFocus
+ * @prop {Object} anchor
+ *  @prop {object} anchor.ref
+ * @prop {Object} trigger
+ *  @prop {string} trigger.id
+ *  @prop {object} trigger.ref
+ * @prop {Object} content
+ *  @prop {string} content.id
+ *  @prop {object} content.ref
+ */
 const [PopoverProvider, usePopoverContext] = createContext();
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -41,7 +52,7 @@ export function usePopoverPosition(props = {}) {
 
 export function usePopoverTrigger(props = {}, ref) {
   const popover = usePopoverContext();
-  const _ref = useMergeRefs(popover.trigger.ref, popover.onToggle);
+  const _ref = useMergeRefs(popover.trigger.ref, popover.onToggle, ref);
 
   return {
     ref: _ref,
@@ -64,7 +75,7 @@ export function usePopoverTrigger(props = {}, ref) {
  */
 export function usePopoverContent(props, ref) {
   const popover = usePopoverContent();
-  const _ref = useMergeRefs(popover.content.ref);
+  const _ref = useMergeRefs(popover.content.ref, ref);
 
   const onBlur = useBlurOutside(popover.trigger.ref, popover.content.ref, {
     action: popover.onClose,
@@ -96,7 +107,25 @@ export function usePopoverContent(props, ref) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-// usePopoverState in addition possibly
+/**
+ * Hook for managing Popover component state.
+ * @param {Object} props
+ * @param {string} props.id
+ * @param {boolean} props.isOpen
+ * @param {boolean} props.defaultIsOpen
+ * @param {object} props.initialFocusRef
+ * @param {hover|click} props.trigger
+ * @param {boolean} props.returnFocusOnClose
+ * @param {number} props.gutter
+ * @param {string} props.placement
+ * @param {boolean} props.closeOnBlur
+ * @param {boolean} props.closeOnEsc
+ * @param {function} props.onOpen
+ * @param {function} props.onClose
+ * @param {boolean} props.matchTriggerWidth
+ * @param {boolean} props.usePortal
+ * @param {boolean} props.trapFocus
+ */
 export function usePopover(props) {
   const disclosure = useDisclosure(props);
   const triggerRef = useRef(null);
@@ -161,6 +190,10 @@ export function usePopover(props) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
+/**
+ * Popover component
+ * - usePopover for interface.
+ */
 export function Popover(props) {
   const popover = usePopover(props);
   return <PopoverProvider value={popover}>{props.children}</PopoverProvider>;
@@ -181,6 +214,7 @@ export function PopoverContent(props, ref) {
 
   return (
     <Box
+      ref={content.ref}
       as='section'
       borderWidth='1px'
       width='100%'

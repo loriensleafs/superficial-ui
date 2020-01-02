@@ -1,12 +1,20 @@
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import { get, isUIElement, transition } from '@superficial-ui/utils';
 import PropTypes from 'prop-types';
-import * as React from 'react';
+import {
+  Children,
+  cloneElement,
+  isValidElement,
+  useEffect,
+  useRef,
+} from 'react';
 import { Box } from '../Box';
 import { ButtonBase } from '../ButtonBase';
 import { ListContext, useListContext } from '../List';
 import { useRipples } from '../useRipples';
 
-export const ListItem = React.forwardRef(
+export const ListItem = forwardRef(
   (
     {
       alignItems,
@@ -35,12 +43,12 @@ export const ListItem = React.forwardRef(
       isDense: isDense || get(context, 'isDense', false),
       alignItems,
     };
-    const ownRef = React.useRef(null);
+    const ownRef = useRef(null);
     const ref = forwardedRef ? forwardedRef : ownRef;
 
     /* -------------------------------------------------------------------------- */
 
-    React.useEffect(() => {
+    useEffect(() => {
       if (autoFocus && ref.current) {
         ref.current.focus();
       }
@@ -49,11 +57,11 @@ export const ListItem = React.forwardRef(
     /* -------------------------------------------------------------------------- */
 
     let hasSecondaryAction = false;
-    const children = React.Children.map(childrenProp, (child, index) => {
-      if (!React.isValidElement(child)) return child;
+    const children = Children.map(childrenProp, (child, index) => {
+      if (!isValidElement(child)) return child;
 
       const isFirstChild = index === 0;
-      const isLastChild = React.Children.count(childrenProp) - 1 === index;
+      const isLastChild = Children.count(childrenProp) - 1 === index;
 
       /** <ListItem> <Avatar> */
       if (isFirstChild && isUIElement(child, 'Avatar')) {
@@ -66,7 +74,7 @@ export const ListItem = React.forwardRef(
               }),
             }}
           >
-            {React.cloneElement(child, {
+            {cloneElement(child, {
               size: 'md',
               sx: {
                 flexShrink: 0,
@@ -97,7 +105,7 @@ export const ListItem = React.forwardRef(
               ...(alignItems === 'flex-start' && { mt: 'sm' }),
             }}
           >
-            {React.cloneElement(child, { size: 'md' })}
+            {cloneElement(child, { size: 'md' })}
           </Box>
         );
       }
@@ -108,7 +116,7 @@ export const ListItem = React.forwardRef(
         isUIElement(child, ['IconButton', 'Checkbox', 'Radio', 'Switch'])
       ) {
         hasSecondaryAction = true;
-        return React.cloneElement(child, {
+        return cloneElement(child, {
           sx: {
             position: 'absolute',
             right: '16px',
@@ -121,9 +129,9 @@ export const ListItem = React.forwardRef(
       return child;
     });
 
-    /* -------------------------------------------------------------------------- */
+    /* ---------------------------------------------------------------------- */
 
-    const handleBlur = React.useCallback(
+    const handleBlur = useCallback(
       event => {
         if (onBlur) onBlur(event);
         if (isButton) ink.onBlur(event);
@@ -131,9 +139,9 @@ export const ListItem = React.forwardRef(
       [onBlur, ink.onBlur],
     );
 
-    /* -------------------------------------------------------------------------- */
+    /* ---------------------------------------------------------------------- */
 
-    const handleFocus = React.useCallback(
+    const handleFocus = useCallback(
       event => {
         if (onFocus) onFocus(event);
         if (isButton) ink.onFocus(event);
@@ -141,9 +149,9 @@ export const ListItem = React.forwardRef(
       [onFocus, ink.onFocus],
     );
 
-    /* -------------------------------------------------------------------------- */
+    /* ---------------------------------------------------------------------- */
 
-    const handleMouseDown = React.useCallback(
+    const handleMouseDown = useCallback(
       event => {
         if (onMouseDown) onMouseDown(event);
         if (isButton) ink.onMouseDown(event);
@@ -151,9 +159,9 @@ export const ListItem = React.forwardRef(
       [onMouseDown, ink.onMouseDown],
     );
 
-    /* -------------------------------------------------------------------------- */
+    /* ---------------------------------------------------------------------- */
 
-    const handleMouseUp = React.useCallback(
+    const handleMouseUp = useCallback(
       event => {
         if (onMouseUp) onMouseUp(event);
         if (isButton) ink.onMouseUp(event);
@@ -161,7 +169,7 @@ export const ListItem = React.forwardRef(
       [onMouseUp, ink.onMouseUp],
     );
 
-    /* -------------------------------------------------------------------------- */
+    /* ---------------------------------------------------------------------- */
 
     const listItemProps = {
       onBlur: handleBlur,

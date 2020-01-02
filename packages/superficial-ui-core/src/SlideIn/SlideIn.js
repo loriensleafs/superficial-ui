@@ -1,9 +1,10 @@
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import { motion } from 'framer-motion';
 import PropTypes from 'prop-types';
-import * as React from 'react';
 import { Box } from '../Box';
 
-export const SlideIn = React.forwardRef(
+export const SlideIn = forwardRef(
   (
     {
       as: Component = Box,

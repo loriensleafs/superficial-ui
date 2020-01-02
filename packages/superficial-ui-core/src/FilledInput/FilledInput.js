@@ -1,5 +1,6 @@
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import { transition } from '@superficial-ui/utils';
-import * as React from 'react';
 import { useFormControl } from '../FormControl';
 import { InputBase } from '../InputBase';
 import { InputControl } from '../InputControl';
@@ -12,7 +13,7 @@ const pseudoStyles = {
   pointerEvents: 'none',
 };
 
-const Control = React.forwardRef(
+const Control = forwardRef(
   ({ endAddon, isDense, startAddon, ...props }, ref) => (
     <InputControl
       isDense={isDense}
@@ -37,7 +38,7 @@ const Control = React.forwardRef(
   ),
 );
 
-export const FilledInput = React.forwardRef((props, ref) => {
+export const FilledInput = forwardRef((props, ref) => {
   const [
     { color, endAddon, isDense, inputRef, startAddon, ...passThru },
     formControl,

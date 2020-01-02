@@ -1,5 +1,6 @@
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import { fade, transition } from '@superficial-ui/utils';
-import * as React from 'react';
 import { Box } from '../Box';
 import { Icon } from '../Icon';
 
@@ -18,7 +19,7 @@ const sizes = {
   },
 };
 
-const CloseButton = React.forwardRef(
+const CloseButton = forwardRef(
   (
     {
       size = 'md',
@@ -70,5 +71,5 @@ const CloseButton = React.forwardRef(
     );
   },
 );
-
+CloseButton.uiName = 'CloseButton';
 CloseButton.displayName = 'CloseButton';

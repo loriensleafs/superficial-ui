@@ -1,9 +1,10 @@
-import * as React from 'react';
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import { Box } from '../Box';
 import { IconButton } from '../IconButton';
 import { useSelectControl } from './useSelectControl';
 
-export const SelectControl = React.forwardRef(
+export const SelectControl = forwardRef(
   (
     {
       'aria-label': ariaLabel,

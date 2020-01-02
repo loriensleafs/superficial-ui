@@ -8,8 +8,8 @@ import {
   merge,
   toArray,
 } from '@superficial-ui/utils';
-import { forwardRef } from 'react';
 import { css } from './css';
+import { forwardRef } from './forwardRef';
 import { jsx } from './jsx';
 import { htmlElements } from './supportedElements';
 import { isPropValid, system, truncate } from './system';

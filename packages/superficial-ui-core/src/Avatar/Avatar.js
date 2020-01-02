@@ -1,5 +1,7 @@
+/** @jsx jsx */
 import PropTypes from 'prop-types';
-import React, { cloneElement, forwardRef } from 'react';
+import { cloneElement } from 'react';
+import { forwardRef, jsx } from '@superficial-ui/system';
 import { Box } from '../Box';
 import { useHasImageLoaded } from '../Image';
 import { getContrast, isUIElement } from '@superficial-ui/utils';

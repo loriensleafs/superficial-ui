@@ -1,4 +1,5 @@
-import * as React from 'react';
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import { Box } from '../Box';
 import { TableCell } from '../TableCell';
 import { Text } from '../Text';
@@ -12,7 +13,7 @@ const defaultRowsPerPageOptions = [10, 25, 50, 100];
 /**
  * A `TableCell` based component for placing inside `TableFooter` for pagination.
  */
-export const TablePagination = React.forwardRef((props, ref) => {
+export const TablePagination = forwardRef((props, ref) => {
   const {
     ActionsComponent = TablePaginationActions,
     backIconButtonProps,

@@ -1,8 +1,9 @@
-import * as React from 'react';
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import { Box } from '../Box';
 import { useTableInner } from '../Table';
 
-export const TableRow = React.forwardRef((props, ref) => {
+export const TableRow = forwardRef((props, ref) => {
   const { hover = false, isSelected = false, ...passThru } = props;
   const tablelvl2 = useTableInner();
 

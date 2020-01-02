@@ -1,8 +1,10 @@
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import PropTypes from 'prop-types';
-import * as React from 'react';
+import { Children, cloneElement, isValidElement } from 'react';
 import { Box } from '../Box';
 
-const MoreAvatarsLabel = React.forwardRef(
+const MoreAvatarsLabel = forwardRef(
   ({ borderIsShowing, label, size: sizeProp, ...props }, ref) => {
     let size;
     if (sizeProp === 'sm') size = '2xl';
@@ -42,21 +44,21 @@ MoreAvatarsLabel.propTypes = {
   size: PropTypes.oneOf(['small', 'medium', 'large']),
 };
 
-export const AvatarGroup = React.forwardRef(
+export const AvatarGroup = forwardRef(
   ({ children, max, size: sizeProp, spacing, ...props }, ref) => {
     let size;
     if (sizeProp === 'sm') size = '2xl';
     if (sizeProp === 'md') size = '4xl';
     if (sizeProp === 'lg') size = '6xl';
 
-    let count = React.Children.count(children);
-    const clones = React.Children.map(children, (child, index) => {
-      if (!React.isValidElement(child)) return child;
+    let count = Children.count(children);
+    const clones = Children.map(children, (child, index) => {
+      if (!isValidElement(child)) return child;
       if (max && index > max) return null;
 
       if (max == null || (max && index < max)) {
         let isFirstAvatar = index === 0;
-        return React.cloneElement(child, {
+        return cloneElement(child, {
           borderIsShowing: true,
           sx: {
             ml: isFirstAvatar ? 0 : spacing,

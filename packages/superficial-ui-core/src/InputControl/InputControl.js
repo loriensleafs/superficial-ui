@@ -1,7 +1,8 @@
-import * as React from 'react';
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import { Box } from '../Box';
 
-export const InputControl = React.forwardRef(
+export const InputControl = forwardRef(
   (
     {
       'aria-describedby': ariaDescribedby,

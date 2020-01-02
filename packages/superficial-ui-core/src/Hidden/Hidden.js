@@ -1,9 +1,11 @@
-import PropTypes from 'prop-types';
-import * as React from 'react';
-import { Box } from '../Box';
+/** @jsx jsx */
 import { useAllCallbacks } from '@superficial-ui/hooks';
+import { forwardRef, jsx } from '@superficial-ui/system';
+import PropTypes from 'prop-types';
+import { useCallback, useEffect } from 'react';
+import { Box } from '../Box';
 
-export const Hidden = React.forwardRef(
+export const Hidden = forwardRef(
   (
     {
       children,
@@ -21,12 +23,12 @@ export const Hidden = React.forwardRef(
     },
     forwardedRef,
   ) => {
-    React.useEffect(() => {
+    useEffect(() => {
       if (setIsMounted) setIsMounted(true);
       return () => setIsMounted && setIsMounted(false);
     }, [setIsMounted]);
 
-    const handleTransitionEnd = React.useCallback(() => {
+    const handleTransitionEnd = useCallback(() => {
       if (isAnimated && stopAnimation && !isVisible) {
         stopAnimation();
       }

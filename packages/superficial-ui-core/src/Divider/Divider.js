@@ -1,8 +1,9 @@
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import { fade } from '@superficial-ui/utils';
-import * as React from 'react';
 import { Box } from '../Box';
 
-export const Divider = React.forwardRef(
+export const Divider = forwardRef(
   ({ isInset, isLight, isVertical, ...props }, ref) => (
     <Box
       as='hr'

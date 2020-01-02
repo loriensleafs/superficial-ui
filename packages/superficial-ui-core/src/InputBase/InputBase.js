@@ -1,18 +1,18 @@
 /** @jsx jsx */
 import {
   useDimensions,
-  useMergeRefs,
   useIsomorphicEffect,
+  useMergeRefs,
 } from '@superficial-ui/hooks';
-import { jsx } from '@superficial-ui/system';
+import { forwardRef, jsx } from '@superficial-ui/system';
 import { isEmpty } from '@superficial-ui/utils';
-import * as React from 'react';
+import { cloneElement, useCallback, useEffect, useRef, useState } from 'react';
 import { Box } from '../Box';
 import { FormControlContext, useFormControl } from '../FormControl';
 import { InputControl } from '../InputControl';
 import { isDirty } from './utils';
 
-export const InputBase = React.forwardRef((props, ref) => {
+export const InputBase = forwardRef((props, ref) => {
   const [
     {
       'aria-describedby': ariaDescribedby,
@@ -58,20 +58,20 @@ export const InputBase = React.forwardRef((props, ref) => {
     'setStartAddonRect',
     'setEndAddonRect',
   ]);
-  const { current: isControlled } = React.useRef(!isEmpty(value));
+  const { current: isControlled } = useRef(!isEmpty(value));
 
   const [startAddonRef, startAddonRect] = useDimensions({ liveMeasure: false });
   const [endAddonRef, endAddonRect] = useDimensions({ liveMeasure: false });
 
-  const ownInputRef = React.useRef(null);
+  const ownInputRef = useRef(null);
   const inputRef = useMergeRefs(ownInputRef, inputRefProp);
 
-  const [isFocused, setIsFocused] = React.useState(false);
+  const [isFocused, setIsFocused] = useState(false);
 
   /** Keep control of filled state */
   const onFilled = formControl && formControl.onFilled;
   const onEmpty = formControl && formControl.onEmpty;
-  const checkIfDirty = React.useCallback(
+  const checkIfDirty = useCallback(
     obj => {
       if (isDirty(obj) && onFilled) onFilled();
       if (!isDirty(obj) && onEmpty) onEmpty();
@@ -80,7 +80,7 @@ export const InputBase = React.forwardRef((props, ref) => {
   );
 
   /** Local - track focus state */
-  React.useEffect(() => {
+  useEffect(() => {
     if (!formControl && isDisabled && isFocused) {
       setIsFocused(false);
       if (onBlur) onBlur();
@@ -93,12 +93,12 @@ export const InputBase = React.forwardRef((props, ref) => {
   }, [value, checkIfDirty, isControlled]);
 
   /** Form control - initial value state (mount) */
-  React.useEffect(() => {
+  useEffect(() => {
     checkIfDirty(inputRef.current);
   }, []);
 
   /** Form control - track <InputAddons> */
-  React.useEffect(() => {
+  useEffect(() => {
     if (setStartAddonRect && !isEmpty(startAddonRect)) {
       setStartAddonRect(startAddonRect);
     }
@@ -165,7 +165,7 @@ export const InputBase = React.forwardRef((props, ref) => {
       }}
     >
       {startAddon &&
-        React.cloneElement(startAddon, {
+        cloneElement(startAddon, {
           position: 'start',
           ref: startAddonRef,
         })}
@@ -194,7 +194,7 @@ export const InputBase = React.forwardRef((props, ref) => {
         />
       </FormControlContext.Provider>
       {endAddon &&
-        React.cloneElement(endAddon, { position: 'end', ref: endAddonRef })}
+        cloneElement(endAddon, { position: 'end', ref: endAddonRef })}
       {children}
     </Box>
   );

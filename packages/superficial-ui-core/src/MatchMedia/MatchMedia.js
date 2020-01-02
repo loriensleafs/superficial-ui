@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx } from '@superficial-ui/system';
 import { toArray } from '@superficial-ui/utils';
 import { useResponsiveValue } from '@theme-ui/match-media';
 

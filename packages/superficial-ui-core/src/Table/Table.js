@@ -1,15 +1,17 @@
-import * as React from 'react';
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
+import { useMemo } from 'react';
 import { Box } from '../Box';
 import { TableContext } from './context';
 
-export const Table = React.forwardRef((props, ref) => {
+export const Table = forwardRef((props, ref) => {
   const {
     padding = 'default',
     size = 'medium',
     headerIsSticky = false,
     ...passThru
   } = props;
-  const table = React.useMemo(() => ({ padding, size, headerIsSticky }), [
+  const table = useMemo(() => ({ padding, size, headerIsSticky }), [
     padding,
     size,
     headerIsSticky,

@@ -1,11 +1,12 @@
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import { isUIElement } from '@superficial-ui/utils';
 import PropTypes from 'prop-types';
-import * as React from 'react';
 import { Box } from '../Box';
 import { useListContext } from '../List';
 import { P } from '../Text';
 
-export const ListItemText = React.forwardRef(
+export const ListItemText = forwardRef(
   ({ children, color, isInset, primaryText, secondaryText, ...props }, ref) => {
     const { isDense } = useListContext();
 

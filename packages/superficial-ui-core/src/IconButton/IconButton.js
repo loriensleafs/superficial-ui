@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import {
   darken,
   fade,
@@ -6,12 +8,12 @@ import {
   transition,
 } from '@superficial-ui/utils';
 import PropTypes from 'prop-types';
-import * as React from 'react';
+import { useCallback } from 'react';
 import { ButtonBase } from '../ButtonBase';
 import { Spinner } from '../Spinner';
 import { useRipples } from '../useRipples';
 
-export const IconButton = React.forwardRef(
+export const IconButton = forwardRef(
   (
     {
       children,
@@ -33,7 +35,7 @@ export const IconButton = React.forwardRef(
     const ink = useRipples({ isCentered: true });
     const isInherit = color === 'inherit';
 
-    const handleBlur = React.useCallback(
+    const handleBlur = useCallback(
       event => {
         if (onBlur) onBlur(event);
         if (ink.onBlur) ink.onBlur(event);
@@ -41,7 +43,7 @@ export const IconButton = React.forwardRef(
       [onBlur, ink.onBlur],
     );
 
-    const handleFocus = React.useCallback(
+    const handleFocus = useCallback(
       event => {
         if (onFocus) onFocus(event);
         if (ink.onFocus) ink.onFocus(event);
@@ -49,7 +51,7 @@ export const IconButton = React.forwardRef(
       [onFocus, ink.onFocus],
     );
 
-    const handleMouseDown = React.useCallback(
+    const handleMouseDown = useCallback(
       event => {
         if (onMouseDown) onMouseDown(event);
         if (ink.onMouseDown) ink.onMouseDown(event);
@@ -57,7 +59,7 @@ export const IconButton = React.forwardRef(
       [onMouseDown, ink.onMouseDown],
     );
 
-    const handleMouseUp = React.useCallback(
+    const handleMouseUp = useCallback(
       event => {
         if (onMouseUp) onMouseUp(event);
         if (ink.onMouseUp) ink.onMouseUp(event);

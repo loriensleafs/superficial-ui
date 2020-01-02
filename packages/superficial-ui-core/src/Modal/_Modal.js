@@ -1,16 +1,17 @@
+/** @jsx jsx */
 import {
   useAriaHidden,
   useClickOutside,
-  useDisclosure,
   useIds,
   useLockBodyScroll,
   useMergeRefs,
 } from '@superficial-ui/hooks';
+import { forwardRef, jsx } from '@superficial-ui/system';
 import { createContext } from '@superficial-ui/utils';
-import React, { forwardRef, useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
+import ErrorBoundary from 'react-error-boundary';
 import { Box } from '../Box';
 import { Portal } from '../Portal/_Portal';
-import ErrorBoundary from 'react-error-boundary';
 
 ////////////////////////////////////////////////////////////////////////////////
 

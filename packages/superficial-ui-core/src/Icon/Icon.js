@@ -1,8 +1,9 @@
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import { transition } from '@superficial-ui/utils';
-import * as React from 'react';
 import { Box } from '../Box';
 
-export const Icon = React.forwardRef(
+export const Icon = forwardRef(
   (
     {
       children,

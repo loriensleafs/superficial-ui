@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import {
   darken,
   fade,
@@ -8,13 +10,13 @@ import {
   transition,
 } from '@superficial-ui/utils';
 import PropTypes from 'prop-types';
-import * as React from 'react';
+import { Children, cloneElement } from 'react';
 import { Box } from '../Box';
 import { CancelIcon } from '../svgs';
 import { Text } from '../Text';
 import { useRipples } from '../useRipples';
 
-export const Chip = React.forwardRef(
+export const Chip = forwardRef(
   (
     {
       children,
@@ -41,7 +43,7 @@ export const Chip = React.forwardRef(
     };
 
     const deleteIcon = onDelete
-      ? React.cloneElement(deleteIconProp, {
+      ? cloneElement(deleteIconProp, {
           onClick: handleDeleteIconClick,
           sx: {
             cursor: 'pointer',
@@ -64,11 +66,11 @@ export const Chip = React.forwardRef(
           },
         })
       : null;
-    const clones = React.Children.map(children, (child, index) => {
+    const clones = Children.map(children, (child, index) => {
       const isFirstChild = index === 0;
 
       if (isUIElement(child, 'Avatar')) {
-        return React.cloneElement(child, {
+        return cloneElement(child, {
           ml: isFirstChild ? outerMargin : innerMargin,
           mr: isFirstChild ? innerMargin : outerMargin,
           sx: {
@@ -88,7 +90,7 @@ export const Chip = React.forwardRef(
       }
 
       if (isUIElement(child, ['Icon', 'IconButton'])) {
-        return React.cloneElement(child, {
+        return cloneElement(child, {
           ml: isFirstChild ? outerMargin : innerMargin,
           mr: isFirstChild ? innerMargin : outerMargin,
           sx: {
@@ -130,7 +132,7 @@ export const Chip = React.forwardRef(
         );
       }
       if (isUIElement(child, 'Text')) {
-        return React.cloneElement(child, {
+        return cloneElement(child, {
           marginIsDisabled: true,
           sx: textSx,
         });

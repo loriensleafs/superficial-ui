@@ -1,9 +1,10 @@
-import * as React from 'react';
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import { Box } from '../Box';
 import { useListContext } from '../List';
 import { Text } from '../Text';
 
-export const ListText = React.forwardRef(
+export const ListText = forwardRef(
   (
     {
       children,

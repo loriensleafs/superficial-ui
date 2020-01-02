@@ -1,10 +1,12 @@
+/** @jsx jsx */
 import { useMergeRefs } from '@superficial-ui/hooks';
+import { forwardRef, jsx } from '@superficial-ui/system';
 import { motion } from 'framer-motion';
 import PropTypes from 'prop-types';
-import * as React from 'react';
+import { useRef } from 'react';
 import { Box } from '../Box';
 
-export const Fade = React.forwardRef(
+export const Fade = forwardRef(
   (
     {
       as: Component = Box,
@@ -21,7 +23,7 @@ export const Fade = React.forwardRef(
     },
     forwardedRef,
   ) => {
-    const ownRef = React.useRef(null);
+    const ownRef = useRef(null);
     const ref = useMergeRefs(ownRef, forwardedRef);
     //const ref = forwardedRef ? forwardedRef : ownRef;
 

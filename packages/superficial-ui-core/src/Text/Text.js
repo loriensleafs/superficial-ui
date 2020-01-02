@@ -1,7 +1,8 @@
-import * as React from 'react';
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import { Box } from '../Box';
 
-export const Text = React.forwardRef(
+export const Text = forwardRef(
   (
     {
       align,
@@ -55,9 +56,7 @@ Text.defaultProps = {
   marginIsDisabled: false,
 };
 
-export const H1 = React.forwardRef((props, ref) => (
-  <Text ref={ref} {...props} />
-));
+export const H1 = forwardRef((props, ref) => <Text ref={ref} {...props} />);
 H1.uiName = 'Text';
 H1.displayName = 'H1';
 H1.defaultProps = {
@@ -66,9 +65,7 @@ H1.defaultProps = {
   variant: 'h1',
 };
 
-export const H2 = React.forwardRef((props, ref) => (
-  <Text ref={ref} {...props} />
-));
+export const H2 = forwardRef((props, ref) => <Text ref={ref} {...props} />);
 H2.uiName = 'Text';
 H2.displayName = 'H1=2';
 H2.defaultProps = {
@@ -77,9 +74,7 @@ H2.defaultProps = {
   variant: 'h2',
 };
 
-export const H3 = React.forwardRef((props, ref) => (
-  <Text ref={ref} {...props} />
-));
+export const H3 = forwardRef((props, ref) => <Text ref={ref} {...props} />);
 H3.uiName = 'Text';
 H3.displayName = 'H3';
 H3.defaultProps = {
@@ -88,9 +83,7 @@ H3.defaultProps = {
   variant: 'h3',
 };
 
-export const H4 = React.forwardRef((props, ref) => (
-  <Text ref={ref} {...props} />
-));
+export const H4 = forwardRef((props, ref) => <Text ref={ref} {...props} />);
 H4.uiName = 'Text';
 H4.displayName = 'H4';
 H4.defaultProps = {
@@ -99,9 +92,7 @@ H4.defaultProps = {
   variant: 'h4',
 };
 
-export const H5 = React.forwardRef((props, ref) => (
-  <Text ref={ref} {...props} />
-));
+export const H5 = forwardRef((props, ref) => <Text ref={ref} {...props} />);
 H5.uiName = 'Text';
 H5.displayName = 'H5';
 H5.defaultProps = {
@@ -110,9 +101,7 @@ H5.defaultProps = {
   variant: 'h5',
 };
 
-export const H6 = React.forwardRef((props, ref) => (
-  <Text ref={ref} {...props} />
-));
+export const H6 = forwardRef((props, ref) => <Text ref={ref} {...props} />);
 H6.uiName = 'Text';
 H6.displayName = 'H6';
 H6.defaultProps = {
@@ -121,7 +110,7 @@ H6.defaultProps = {
   variant: 'h6',
 };
 
-export const P = React.forwardRef((props, ref) => (
+export const P = forwardRef((props, ref) => (
   <Text ref={ref} variant='paragraph' {...props} />
 ));
 P.uiName = 'Text';
@@ -132,7 +121,7 @@ P.defaultProps = {
   variant: 'p',
 };
 
-export const Caption = React.forwardRef((props, ref) => (
+export const Caption = forwardRef((props, ref) => (
   <Text ref={ref} {...props} />
 ));
 Caption.uiName = 'Text';

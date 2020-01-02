@@ -1,9 +1,10 @@
-import PropTypes from 'prop-types';
-import * as React from 'react';
-import { Box } from '../Box';
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import { transition } from '@superficial-ui/utils';
+import PropTypes from 'prop-types';
+import { Box } from '../Box';
 
-export const Card = React.forwardRef(
+export const Card = forwardRef(
   ({ isRaised, variant, sx, ...props }, forwardedRef) => (
     <Box
       ref={forwardedRef}

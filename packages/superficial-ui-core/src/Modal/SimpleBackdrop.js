@@ -1,9 +1,10 @@
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import PropTypes from 'prop-types';
-import * as React from 'react';
 import { Box } from '../Box';
 import { Fade } from '../Fade';
 
-export const SimpleBackdrop = React.forwardRef(
+export const SimpleBackdrop = forwardRef(
   ({ isInvisible, isOpen, ...props }, forwardedRef) =>
     isOpen ? (
       <Fade

@@ -1,12 +1,13 @@
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import {
   KeyboardArrowLeftIcon,
   KeyboardArrowRightIcon,
 } from '@superficial-ui/icons';
-import * as React from 'react';
 import { Box } from '../Box';
 import { IconButton } from '../IconButton';
 
-export const TablePaginationActions = React.forwardRef((props, ref) => {
+export const TablePaginationActions = forwardRef((props, ref) => {
   const {
     backIconButtonProps,
     count,

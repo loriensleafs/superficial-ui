@@ -1,9 +1,11 @@
-import * as React from 'react';
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
+import { Children, useState } from 'react';
 import { Box } from '../Box';
 import { isEmpty } from '../InputBase';
 import { FormControlContext } from './context';
 
-export const FormControl = React.forwardRef(
+export const FormControl = forwardRef(
   (
     {
       as = 'div',
@@ -19,16 +21,13 @@ export const FormControl = React.forwardRef(
     },
     ref,
   ) => {
-    const [startAddonRect, setStartAddonRect] = React.useState(null);
-    const [endAddonRect, setEndAddonRect] = React.useState(null);
-    const [labelRect, setLabelRect] = React.useState(null);
+    const [startAddonRect, setStartAddonRect] = useState(null);
+    const [endAddonRect, setEndAddonRect] = useState(null);
+    const [labelRect, setLabelRect] = useState(null);
 
-    const [isFocused, setIsFocused] = React.useState(false);
-    const [isFilled, setIsFilled] = React.useState(() =>
-      React.Children.toArray(children).reduce(
-        (a, c) => isEmpty(c.props),
-        false,
-      ),
+    const [isFocused, setIsFocused] = useState(false);
+    const [isFilled, setIsFilled] = useState(() =>
+      Children.toArray(children).reduce((a, c) => isEmpty(c.props), false),
     );
 
     const onFilled = React.useCallback(() => {

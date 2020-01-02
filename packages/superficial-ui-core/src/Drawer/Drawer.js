@@ -1,4 +1,5 @@
-import * as React from 'react';
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 
 const Overlay = ({ onClick }) => (
   <div
@@ -14,7 +15,7 @@ const Overlay = ({ onClick }) => (
   />
 );
 
-export const Drawer = React.forwardRef(
+export const Drawer = forwardRef(
   ({ children, open, side = 'left', ...props }, ref) => {
     return (
       <>

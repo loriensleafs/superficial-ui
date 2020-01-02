@@ -1,13 +1,15 @@
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import { get } from '@superficial-ui/utils';
 import PropTypes from 'prop-types';
-import * as React from 'react';
+import { useMemo } from 'react';
 import { Box } from '../Box';
 import { ListContext } from './context';
 
-export const List = React.forwardRef(
+export const List = forwardRef(
   ({ children, isDense, paddingIsDisabled, ...props }, forwardedRef) => {
-    const context = React.useMemo(() => ({ isDense }), [isDense]);
-    const hasSubheader = React.Children.toArray(children).some(
+    const context = useMemo(() => ({ isDense }), [isDense]);
+    const hasSubheader = Children.toArray(children).some(
       child => get(child, 'type, uiName') === 'ListSubheader',
     );
 

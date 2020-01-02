@@ -1,13 +1,15 @@
+/** @jsx jsx */
 import {
   useControllableProp,
-  useMergeRefs,
   useId,
+  useMergeRefs,
 } from '@superficial-ui/hooks';
-import * as React from 'react';
+import { forwardRef, jsx } from '@superficial-ui/system';
+import { useImperativeHandle, useRef, useState } from 'react';
 import { Box } from '../Box';
 import { RadioGroupContext } from './context';
 
-export const RadioGroup = React.forwardRef(
+export const RadioGroup = forwardRef(
   (
     {
       children,
@@ -22,16 +24,16 @@ export const RadioGroup = React.forwardRef(
     },
     ref,
   ) => {
-    const rootRef = React.useRef(null);
+    const rootRef = useRef(null);
 
-    const [value, setValue] = React.useState(defaultValue || '');
+    const [value, setValue] = useState(defaultValue || '');
     const [isControlled, currentValue] = useControllableProp(valueProp, value);
 
     /** All radio options must use the same name */
     const fallbackName = useId('radio');
     const name = name || fallbackName;
 
-    React.useImperativeHandle(
+    useImperativeHandle(
       ref,
       () => ({
         focus: () => {

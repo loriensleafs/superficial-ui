@@ -1,12 +1,13 @@
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import PropTypes from 'prop-types';
-import * as React from 'react';
 import { Box } from '../Box';
 
 /* -------------------------------------------------------------------------- */
 /*                            BUTTON BASE COMPONENT                           */
 /* -------------------------------------------------------------------------- */
 
-export const ButtonBase = React.forwardRef(
+export const ButtonBase = forwardRef(
   (
     {
       as,

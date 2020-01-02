@@ -1,7 +1,8 @@
-import * as React from 'react';
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import { Box } from '../Box';
 
-export const VisuallyHidden = React.forwardRef((props, ref) => (
+export const VisuallyHidden = forwardRef((props, ref) => (
   <Box
     ref={ref}
     {...props}

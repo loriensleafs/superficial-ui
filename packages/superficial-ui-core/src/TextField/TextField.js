@@ -1,4 +1,5 @@
-import * as React from 'react';
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import { FilledInput } from '../FilledInput';
 import { FormControl } from '../FormControl';
 import { Input } from '../Input';
@@ -11,7 +12,7 @@ const variantComponent = {
   outlined: OutlinedInput,
 };
 
-export const TextField = React.forwardRef(
+export const TextField = forwardRef(
   (
     {
       children,

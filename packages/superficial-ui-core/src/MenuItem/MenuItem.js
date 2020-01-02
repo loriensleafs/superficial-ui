@@ -1,8 +1,9 @@
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import PropTypes from 'prop-types';
-import * as React from 'react';
 import { ListItem } from '../ListItem';
 
-export const MenuItem = React.forwardRef(
+export const MenuItem = forwardRef(
   (
     {
       isDense,

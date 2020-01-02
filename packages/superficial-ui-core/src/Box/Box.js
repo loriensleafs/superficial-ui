@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import types from '@styled-system/prop-types';
-import { styled } from '@superficial-ui/system';
+import { jsx, styled } from '@superficial-ui/system';
 import PropTypes from 'prop-types';
 
 export const Box = styled.div;

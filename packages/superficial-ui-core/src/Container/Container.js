@@ -1,7 +1,8 @@
-import * as React from 'react';
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import { Box } from '../Box';
 
-export const Container = React.forwardRef((props, ref) => (
+export const Container = forwardRef((props, ref) => (
   <Box
     ref={ref}
     {...props}

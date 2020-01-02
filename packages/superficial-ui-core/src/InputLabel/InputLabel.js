@@ -1,10 +1,12 @@
+/** @jsx jsx */
 import { useDimensions, useMergeRefs } from '@superficial-ui/hooks';
+import { forwardRef, jsx } from '@superficial-ui/system';
 import { isEmpty, transition } from '@superficial-ui/utils';
-import * as React from 'react';
+import { useEffect } from 'react';
 import { useFormControl } from '../FormControl';
 import { FormLabel } from '../FormLabel';
 
-export const InputLabel = React.forwardRef((props, ref) => {
+export const InputLabel = forwardRef((props, ref) => {
   const [
     {
       color,
@@ -38,7 +40,7 @@ export const InputLabel = React.forwardRef((props, ref) => {
       ? formControl.isFilled || formControl.isFocused
       : isFloatingProp;
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (setLabelRect && !isEmpty(labelRect)) setLabelRect(labelRect);
   }, [setLabelRect, labelRect]);
 

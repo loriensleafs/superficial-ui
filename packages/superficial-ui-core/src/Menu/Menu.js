@@ -1,5 +1,7 @@
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import PropTypes from 'prop-types';
-import * as React from 'react';
+import { Children, cloneElement, isValidElement, useRef } from 'react';
 import { MenuList } from '../MenuList';
 import { Popover } from '../Popover';
 
@@ -7,7 +9,7 @@ import { Popover } from '../Popover';
 /*                               MENU COMPONENT                               */
 /* -------------------------------------------------------------------------- */
 
-export const Menu = React.forwardRef(
+export const Menu = forwardRef(
   (
     {
       autoFocus,
@@ -23,8 +25,8 @@ export const Menu = React.forwardRef(
     forwardedRef,
   ) => {
     const autoFocusItem = autoFocus && !disableAutoFocusItem && isOpen;
-    const menuListActionsRef = React.useRef(null);
-    const contentAnchorRef = React.useRef(null);
+    const menuListActionsRef = useRef(null);
+    const contentAnchorRef = useRef(null);
 
     const getContentAnchorEl = () => contentAnchorRef.current;
 
@@ -59,8 +61,8 @@ export const Menu = React.forwardRef(
      * to check for a `selected` item.  We are looking for the last `selected`
      * item.  The first valid item should be used as a fallback.
      */
-    React.Children.forEach(children, (child, index) => {
-      if (!React.isValidElement(child)) return;
+    Children.forEach(children, (child, index) => {
+      if (!isValidElement(child)) return;
 
       if (!child.props.isDisabled) {
         if (variant === 'selectedMenu' && child.props.isSelected) {
@@ -71,9 +73,9 @@ export const Menu = React.forwardRef(
       }
     });
 
-    const items = React.Children.map(children, (child, index) => {
+    const items = Children.map(children, (child, index) => {
       if (index === activeItemIndex) {
-        return React.cloneElement(child, {
+        return cloneElement(child, {
           ref: contentAnchorRef,
         });
       }

@@ -1,6 +1,7 @@
-import React, { forwardRef } from 'react';
-import { Box } from '../Box';
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import { getContrast } from '@superficial-ui/utils';
+import { Box } from '../Box';
 
 export const AppBar = forwardRef(
   ({ color = 'primary', position = 'sticky', ...props }, ref) => {

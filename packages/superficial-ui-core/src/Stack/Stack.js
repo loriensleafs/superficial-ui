@@ -1,9 +1,11 @@
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import { get, isNil } from '@superficial-ui/utils';
-import * as React from 'react';
+import { Children, cloneElement, isValidElement } from 'react';
 import { Box } from '../Box';
 import { Flex } from '../Flex';
 
-export const Stack = React.forwardRef((props, ref) => {
+export const Stack = forwardRef((props, ref) => {
   const {
     children,
     isCentered,
@@ -21,8 +23,8 @@ export const Stack = React.forwardRef((props, ref) => {
     direction = direction + '-reversed';
   }
 
-  const validChildren = React.Children.toArray(children).filter(child =>
-    React.isValidElement(child),
+  const validChildren = Children.toArray(children).filter(child =>
+    isValidElement(child),
   );
 
   return (
@@ -35,8 +37,8 @@ export const Stack = React.forwardRef((props, ref) => {
       sx={sx}
       {...passThru}
     >
-      {React.Children.map(validChildren, (child, index) => {
-        const isLastChild = React.Children.count(children) === index + 1;
+      {Children.map(validChildren, (child, index) => {
+        const isLastChild = Children.count(children) === index + 1;
         const spacingProps = isVertical
           ? { [isReversed ? 'mt' : 'mb']: isLastChild ? null : spacing }
           : { [isReversed ? 'ml' : 'mr']: isLastChild ? null : spacing };
@@ -59,7 +61,7 @@ export const Stack = React.forwardRef((props, ref) => {
             </Box>
           );
         }
-        return React.cloneElement(child, spacingProps);
+        return cloneElement(child, spacingProps);
       })}
     </Flex>
   );

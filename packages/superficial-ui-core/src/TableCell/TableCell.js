@@ -1,5 +1,6 @@
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import { fade, toRem } from '@superficial-ui/utils';
-import * as React from 'react';
 import { Box } from '../Box';
 import { useTable, useTableInner } from '../Table';
 
@@ -7,7 +8,7 @@ import { useTable, useTableInner } from '../Table';
  * This component renders a <th> when the context is a header.
  * Otherwise it renders a <td>.
  */
-export const TableCell = React.forwardRef((props, ref) => {
+export const TableCell = forwardRef((props, ref) => {
   const {
     as: asProp,
     align = 'inherit',

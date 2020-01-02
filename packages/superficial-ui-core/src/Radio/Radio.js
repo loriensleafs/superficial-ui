@@ -1,10 +1,11 @@
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import { createChainedFunction, fade, transition } from '@superficial-ui/utils';
-import * as React from 'react';
 import { useRadioGroup } from '../RadioGroup';
 import { SelectControl } from '../SelectControl';
 import { RadioButtonIcon } from './RadioButtonIcon';
 
-export const Radio = React.forwardRef((props, ref) => {
+export const Radio = forwardRef((props, ref) => {
   const {
     isChecked: isCheckedProp,
     color = 'secondary',

@@ -1,5 +1,6 @@
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
 import { fade, transition } from '@superficial-ui/utils';
-import * as React from 'react';
 import { Box } from '../Box';
 import { SelectControl } from '../SelectControl';
 
@@ -18,6 +19,8 @@ const switchSizes = {
   },
 };
 
+////////////////////////////////////////////////////////////////////////////////
+
 const Thumb = props => (
   <Box
     as='span'
@@ -32,6 +35,8 @@ const Thumb = props => (
 );
 Thumb.uiName = 'Thumb';
 Thumb.displayName = 'Thumb';
+
+////////////////////////////////////////////////////////////////////////////////
 
 const Track = props => (
   <Box
@@ -52,7 +57,9 @@ const Track = props => (
 Track.uiName = 'Track';
 Track.displayName = 'Track';
 
-export const Switch = React.forwardRef(
+////////////////////////////////////////////////////////////////////////////////
+
+export const Switch = forwardRef(
   ({ color = 'secondary', isDisabled = false, sx, ...props }, ref) => (
     <Box
       as='span'
@@ -117,3 +124,5 @@ export const Switch = React.forwardRef(
 );
 Switch.uiName = 'Switch';
 Switch.displayName = 'Switch';
+
+////////////////////////////////////////////////////////////////////////////////

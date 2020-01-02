@@ -1,5 +1,6 @@
+/** @jsx jsx */
 import { keyframes } from '@emotion/core';
-import * as React from 'react';
+import { forwardRef, jsx } from '@superficial-ui/system';
 import { Box } from '../Box';
 
 const spin = keyframes({
@@ -11,7 +12,7 @@ const spin = keyframes({
   },
 });
 
-export const Spinner = React.forwardRef(
+export const Spinner = forwardRef(
   (
     {
       color = 'primary',

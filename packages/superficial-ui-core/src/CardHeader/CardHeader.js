@@ -1,10 +1,11 @@
+/** @jsx jsx */
+import { forwardRef, jsx } from '@superficial-ui/system';
+import { get } from '@superficial-ui/utils';
 import PropTypes from 'prop-types';
-import * as React from 'react';
 import { Box } from '../Box';
 import { Text } from '../Text';
-import { get } from '@superficial-ui/utils';
 
-export const CardHeader = React.forwardRef(
+export const CardHeader = forwardRef(
   (
     { action, avatar, subheader: subheaderProp, title: titleProp, ...props },
     ref,

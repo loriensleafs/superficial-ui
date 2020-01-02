@@ -1,5 +1,7 @@
+/** @jsx jsx */
+import { jsx } from '@superficial-ui/system';
 import { useIsomorphicEffect } from '@superficial-ui/hooks';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { createPortal, findDOMNode } from 'react-dom';
 
 function getContainer(container) {
@@ -16,7 +18,6 @@ export const Portal = ({ children, container }) => {
 
   return mountNode ? createPortal(children, mountNode) : mountNode;
 };
-
 Portal.uiName = 'Portal';
 Portal.displayName = 'Portal';
 

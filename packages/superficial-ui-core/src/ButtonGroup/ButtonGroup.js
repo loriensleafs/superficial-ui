@@ -1,4 +1,6 @@
-import * as React from 'react';
+/** @jsx jsx */
+import { jsx } from '@superficial-ui/system';
+import { Children, cloneElement, isValidElement } from 'react';
 import { Box } from '../Box';
 
 export const ButtonGroup = ({
@@ -12,13 +14,13 @@ export const ButtonGroup = ({
   variant,
   ...props
 }) => {
-  const clones = React.Children.map(children, (child, index) => {
-    if (!React.isValidElement(child)) return;
+  const clones = Children.map(children, (child, index) => {
+    if (!isValidElement(child)) return;
 
     const isFirst = index === 0;
-    const isLast = index === React.Children.count(children) - 1;
+    const isLast = index === Children.count(children) - 1;
 
-    return React.cloneElement(child, {
+    return cloneElement(child, {
       size: size || child.props.size,
       color: child.props.color || color,
       variant: child.props.variant || variant,
