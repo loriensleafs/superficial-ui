@@ -1,5 +1,5 @@
 import React, { forwardRef, memo } from 'react';
-import { Icon } from '@superficial-ui/core';
+import { Icon } from '../../Icon';
 
 const createIcon = (path, displayName) => {
   const Component = memo(
@@ -9,7 +9,6 @@ const createIcon = (path, displayName) => {
       </Icon>
     )),
   );
-
   Component.uiName = 'Icon';
   Component.displayName = `${displayName}Icon`;
 

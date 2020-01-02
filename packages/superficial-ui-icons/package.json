@@ -16,7 +16,7 @@
   "license": "MIT",
   "dependencies": {
     "@emotion/core": "^10.0.22",
-    "@superficial-ui/components": "^1.0.0",
+    "@superficial-ui/core": "^1.0.0",
     "fs-extra": "^8.1.0",
     "isomorphic-fetch": "^2.2.1",
     "mkdirp": "^0.5.0",
